@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "581293512662",
+    "firebase_url": "https://rememberenweal.firebaseio.com",
+    "project_id": "rememberenweal",
+    "storage_bucket": "rememberenweal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:581293512662:android:0c85b95a45931431037677",
+        "android_client_info": {
+          "package_name": "com.solo_dev.remember_renewal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "581293512662-9qihnbeg5fmhthrmqki2blnlae79vh1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKFaeUd2wSqRPmS6njhGH9taYeIYt39ao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "581293512662-9qihnbeg5fmhthrmqki2blnlae79vh1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
