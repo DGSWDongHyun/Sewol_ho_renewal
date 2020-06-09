@@ -32,6 +32,7 @@ public class Google_Login extends AppCompatActivity {
     private FirebaseAuth mAuth = null;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
+    private static SignInButton google;
     private ActivityGoogleLoginBinding googleLoginBinding;
 
     @Override
@@ -39,8 +40,7 @@ public class Google_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        googleLoginBinding = ActivityGoogleLoginBinding.inflate(getLayoutInflater());
-        setContentView(googleLoginBinding.getRoot());
+        setContentView(R.layout.activity_google__login);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -55,7 +55,8 @@ public class Google_Login extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        googleLoginBinding.signInButton.setOnClickListener(v ->{
+        google = findViewById(R.id.signInButton);
+        google.setOnClickListener(v ->{
             signIn();
         });
     }

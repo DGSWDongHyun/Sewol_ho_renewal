@@ -19,8 +19,7 @@
         <ImageView
             android:id="@+id/ship"
             android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+            android:layout_height="150dp" />
 
         <Space
             android:layout_width="match_parent"
