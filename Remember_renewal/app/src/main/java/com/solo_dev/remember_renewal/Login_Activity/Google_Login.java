@@ -39,7 +39,8 @@ public class Google_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_google__login);
+        googleLoginBinding = ActivityGoogleLoginBinding.inflate(getLayoutInflater());
+        setContentView(googleLoginBinding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
 
