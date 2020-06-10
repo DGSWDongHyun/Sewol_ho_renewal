@@ -26,13 +26,13 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.solo_dev.remember_renewal.MainActivity;
 import com.solo_dev.remember_renewal.R;
 import com.solo_dev.remember_renewal.databinding.ActivityGoogleLoginBinding;
+import com.solo_dev.remember_renewal.databinding.ActivityLoadingBinding;
 
 public class Google_Login extends AppCompatActivity {
 
     private FirebaseAuth mAuth = null;
     private GoogleSignInClient mGoogleSignInClient;
     private static final int RC_SIGN_IN = 9001;
-    private static SignInButton google;
     private ActivityGoogleLoginBinding googleLoginBinding;
 
     @Override
@@ -40,7 +40,8 @@ public class Google_Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_google__login);
+        googleLoginBinding = ActivityGoogleLoginBinding.inflate(getLayoutInflater());
+        setContentView(googleLoginBinding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -55,8 +56,8 @@ public class Google_Login extends AppCompatActivity {
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        google = findViewById(R.id.signInButton);
-        google.setOnClickListener(v ->{
+
+        googleLoginBinding.signInButton.setOnClickListener(v ->{
             signIn();
         });
     }

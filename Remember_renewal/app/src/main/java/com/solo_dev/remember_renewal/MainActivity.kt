@@ -33,6 +33,7 @@ import com.solo_dev.remember_renewal.Write_Activity.WriteActivity
 import com.wajahatkarim3.easyflipview.EasyFlipView
 import com.wajahatkarim3.easyflipview.EasyFlipView.OnFlipAnimationListener
 import com.wooplr.spotlight.SpotlightView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
@@ -41,9 +42,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
         setContentView(R.layout.activity_main)
-        defineLayout()
         Initialize()
 
         //more method defined.. **
@@ -196,20 +195,20 @@ class MainActivity : AppCompatActivity() {
         // when we initialize our layout, almost used this method **
 
         // my auto flip card library initialize**
-        efv_card!!.setToHorizontalType()
-        efv_card!!.isAutoFlipBack = false
-        efv_card!!.flipDuration = 2500
+        flip_card!!.setToHorizontalType()
+        flip_card!!.isAutoFlipBack = false
+        flip_card!!.flipDuration = 2500
         firstrun = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE).getBoolean("firstrun", true)
-        sliderView!!.setSliderAdapter(Main_SimpleAdapter(applicationContext))
-        sliderView!!.setIndicatorAnimation(IndicatorAnimations.WORM)
+        slider!!.setSliderAdapter(Main_SimpleAdapter(applicationContext))
+        slider!!.setIndicatorAnimation(IndicatorAnimations.WORM)
         // set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        sliderView!!.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
-        sliderView!!.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
-        sliderView!!.indicatorSelectedColor = Color.WHITE
-        sliderView!!.indicatorUnselectedColor = Color.GRAY
-        sliderView!!.scrollTimeInSec = 3
+        slider!!.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
+        slider!!.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
+        slider!!.indicatorSelectedColor = Color.WHITE
+        slider!!.indicatorUnselectedColor = Color.GRAY
+        slider!!.scrollTimeInSec = 3
         // set scroll delay in seconds :
-        sliderView!!.startAutoCycle()
+        slider!!.startAutoCycle()
 
         // text-view hyper link within html.
         hyper_click!!.isClickable = true
@@ -224,20 +223,12 @@ class MainActivity : AppCompatActivity() {
         mp_flip?.start()
     }
 
-    private fun defineLayout() {
-        efv_card = findViewById(R.id.flip_card)
-        fab1 = findViewById(R.id.material_design_floating_action_menu_item1)
-        fab2 = findViewById(R.id.material_design_floating_action_menu_item2)
-        sliderView = findViewById(R.id.slider)
-        hyper_click = findViewById(R.id.hyper_click)
-        fmenu = findViewById(R.id.material_design_android_floating_action_menu)
-    }
 
     private fun flipMusic() {
 
         // this method is when card flip back / front, play or change music **
-        efv_card!!.onFlipListener = OnFlipAnimationListener { flipView, newCurrentSide ->
-            if (efv_card!!.isBackSide) {
+        flip_card!!.onFlipListener = OnFlipAnimationListener { flipView, newCurrentSide ->
+            if (flip_card!!.isBackSide) {
                 mp_flip!!.stop()
                 mp_flip = MediaPlayer.create(applicationContext, R.raw.back_flip)
                 mp_flip?.isLooping = true
@@ -277,14 +268,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        private var efv_card: EasyFlipView? = null
         private var mp_flip: MediaPlayer? = null
         private var fab1: FloatingActionButton? = null
         private var fab2: FloatingActionButton? = null
-        private var sliderView: SliderView? = null
-        private var hyper_click: TextView? = null
-        private val tb: Toolbar? = null
         private const val MY_PERMISSIONS_REQUEST_FILES = 653
-        private var fmenu: FloatingActionMenu? = null
     }
 }
