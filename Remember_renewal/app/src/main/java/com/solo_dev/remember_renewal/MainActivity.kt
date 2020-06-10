@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
                         .subHeadingTvSize(16)
                         .subHeadingTvText("해당 공간은 한 마디 씩 길게, 짧게 쓰는,\n작은 공간입니다.")
                         .maskColor(Color.parseColor("#dc000000"))
-                        .target(fab1)
+                        .target(material_design_floating_action_menu_item1)
                         .lineAnimDuration(400)
                         .lineAndArcColor(Color.parseColor("#FFFFFF"))
                         .dismissOnTouch(true)
@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
                                     .subHeadingTvSize(16)
                                     .subHeadingTvText("해당 공간은 개발자 소감,\n세월호 304명을 추모하기 위한 곳입니다.")
                                     .maskColor(Color.parseColor("#dc000000"))
-                                    .target(fab2)
+                                    .target(material_design_floating_action_menu_item2)
                                     .lineAnimDuration(400)
                                     .lineAndArcColor(Color.parseColor("#FFFFFF"))
                                     .dismissOnTouch(true)
@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
                         .subHeadingTvSize(16)
                         .subHeadingTvText("해당 공간은 한 마디 씩 길게, 짧게 쓰는,\n작은 공간입니다.")
                         .maskColor(Color.parseColor("#dc000000"))
-                        .target(fab1)
+                        .target(material_design_floating_action_menu_item1)
                         .lineAnimDuration(400)
                         .lineAndArcColor(Color.parseColor("#FFFFFF"))
                         .dismissOnTouch(true)
@@ -169,7 +169,7 @@ class MainActivity : AppCompatActivity() {
                                     .subHeadingTvSize(16)
                                     .subHeadingTvText("해당 공간은 개발자 소감,\n세월호 304명을 추모하기 위한 곳입니다.")
                                     .maskColor(Color.parseColor("#dc000000"))
-                                    .target(fab2)
+                                    .target(material_design_floating_action_menu_item2)
                                     .lineAnimDuration(400)
                                     .lineAndArcColor(Color.parseColor("#FFFFFF"))
                                     .dismissOnTouch(true)
@@ -269,8 +269,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private var mp_flip: MediaPlayer? = null
-        private var fab1: FloatingActionButton? = null
-        private var fab2: FloatingActionButton? = null
         private const val MY_PERMISSIONS_REQUEST_FILES = 653
     }
 }
