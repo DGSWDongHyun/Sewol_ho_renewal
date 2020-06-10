@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun clickListener_FAB() {
-        fab1!!.setOnClickListener {
+        material_design_floating_action_menu_item1!!.setOnClickListener {
             if (firstrun) {
                 SpotlightView.Builder(this@MainActivity)
                         .introAnimationDuration(400)
@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(applicationContext, WriteActivity::class.java))
             }
         }
-        fab2!!.setOnClickListener {
+        material_design_floating_action_menu_item2!!.setOnClickListener {
             if (firstrun) {
                 SpotlightView.Builder(this@MainActivity)
                         .introAnimationDuration(400)
