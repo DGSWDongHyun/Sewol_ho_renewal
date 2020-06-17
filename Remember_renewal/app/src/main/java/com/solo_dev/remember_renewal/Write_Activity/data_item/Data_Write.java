@@ -1,6 +1,4 @@
-package com.solo_dev.remember_renewal.Write_Activity.DataItem;
-
-import com.google.firebase.storage.StorageReference;
+package com.solo_dev.remember_renewal.Write_Activity.data_item;
 
 public class Data_Write {
 

@@ -1,15 +1,12 @@
-package com.solo_dev.remember_renewal.LoadingActivity;
+package com.solo_dev.remember_renewal.loadingactivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.solo_dev.remember_renewal.MainActivity;
 import com.solo_dev.remember_renewal.R;
 import com.solo_dev.remember_renewal.databinding.ActivityLoadingBinding;
 

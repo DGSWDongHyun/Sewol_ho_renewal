@@ -1,6 +1,4 @@
-package com.solo_dev.remember_renewal.Write_Activity.DataItem;
-
-import java.util.ArrayList;
+package com.solo_dev.remember_renewal.Write_Activity.data_item;
 
 public class Reported_Data {
     String reporter;

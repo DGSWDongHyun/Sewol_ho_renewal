@@ -1,17 +1,14 @@
-package com.solo_dev.remember_renewal.ImageSlider_Adapters;
+package com.solo_dev.remember_renewal.imageslider_adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.smarteist.autoimageslider.SliderViewAdapter;
-import com.solo_dev.remember_renewal.ImageSlider_Adapters.ImageSlider_Items.Main_SimpleItems;
+import com.solo_dev.remember_renewal.imageslider_adapters.imageslider_items.Main_SimpleItems;
 import com.solo_dev.remember_renewal.R;
 
 import java.util.ArrayList;

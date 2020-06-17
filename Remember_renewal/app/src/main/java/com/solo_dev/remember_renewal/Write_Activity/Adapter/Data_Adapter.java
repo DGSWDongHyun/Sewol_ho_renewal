@@ -1,9 +1,8 @@
-package com.solo_dev.remember_renewal.Write_Activity.Adapter;
+package com.solo_dev.remember_renewal.Write_Activity.adapter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,30 +12,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.cardview.widget.CardView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.solo_dev.remember_renewal.R;
-import com.solo_dev.remember_renewal.Write_Activity.DataItem.Data_Write;
-import com.solo_dev.remember_renewal.Write_Activity.DataItem.Reported_Data;
+import com.solo_dev.remember_renewal.Write_Activity.data_item.Data_Write;
+import com.solo_dev.remember_renewal.Write_Activity.data_item.Reported_Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

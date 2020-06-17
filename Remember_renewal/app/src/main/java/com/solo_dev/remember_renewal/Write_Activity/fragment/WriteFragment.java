@@ -1,52 +1,35 @@
-package com.solo_dev.remember_renewal.Write_Activity.Fragment;
+package com.solo_dev.remember_renewal.Write_Activity.fragment;
 
 import android.app.AlertDialog;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.ListFragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.solo_dev.remember_renewal.R;
-import com.solo_dev.remember_renewal.Write_Activity.Adapter.Data_Adapter;
-import com.solo_dev.remember_renewal.Write_Activity.DataItem.Data_Write;
-import com.solo_dev.remember_renewal.Write_Activity.DataItem.Reported_Data;
-import com.solo_dev.remember_renewal.Write_Activity.WriteActivity;
+import com.solo_dev.remember_renewal.Write_Activity.adapter.Data_Adapter;
+import com.solo_dev.remember_renewal.Write_Activity.data_item.Data_Write;
 
-import java.text.Collator;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 

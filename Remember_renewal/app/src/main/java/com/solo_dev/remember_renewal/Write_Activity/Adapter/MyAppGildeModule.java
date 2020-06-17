@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal.Write_Activity.Adapter;
+package com.solo_dev.remember_renewal.Write_Activity.adapter;
 
 import android.content.Context;
 

@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
 import android.app.AlertDialog;
@@ -28,27 +27,19 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.solo_dev.remember_renewal.R;
-import com.solo_dev.remember_renewal.Write_Activity.DataItem.Data_Write;
-import com.solo_dev.remember_renewal.Write_Activity.Fragment.WriteFragment;
+import com.solo_dev.remember_renewal.Write_Activity.data_item.Data_Write;
+import com.solo_dev.remember_renewal.Write_Activity.fragment.WriteFragment;
 
-import org.w3c.dom.Text;
-
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
