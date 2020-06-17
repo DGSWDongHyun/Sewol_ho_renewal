@@ -13,3 +13,6 @@
 3. Spotlight. https://github.com/29jitender/Spotlight ( By 29jitender. )
 
 :speech_balloon: 구글 플레이 스토어 주소.
+
+:speech_balloon: 개인 블로그 주소.
+https://blog.naver.com/ydh665566
