@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_sewol"
-    tools:context=".loadingactivity.LoadingActivity">
+    tools:context=".activites.loading_activity.LoadingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

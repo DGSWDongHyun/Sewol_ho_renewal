@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal.Write_Activity.adapter;
+package com.solo_dev.remember_renewal.activites.write_activity.adapter;
 
 import android.content.Context;
 
@@ -7,7 +7,6 @@ import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.firebase.database.logging.Logger;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.InputStream;

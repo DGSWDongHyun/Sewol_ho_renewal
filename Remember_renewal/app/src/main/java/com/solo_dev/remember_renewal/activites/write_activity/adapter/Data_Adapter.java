@@ -1,9 +1,10 @@
-package com.solo_dev.remember_renewal.Write_Activity.adapter;
+package com.solo_dev.remember_renewal.activites.write_activity.adapter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.solo_dev.remember_renewal.R;
-import com.solo_dev.remember_renewal.Write_Activity.data_item.Data_Write;
-import com.solo_dev.remember_renewal.Write_Activity.data_item.Reported_Data;
+import com.solo_dev.remember_renewal.activites.write_activity.data_item.Data_Write;
+import com.solo_dev.remember_renewal.activites.write_activity.data_item.Reported_Data;
 
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class Data_Adapter extends BaseAdapter {
         return i;
     }
 
-    class ViewHolder {
+    public class ViewHolder {
         public TextView title;
         public TextView contents;
         public TextView date;
@@ -95,10 +96,11 @@ public class Data_Adapter extends BaseAdapter {
         holder.title.setText(mData.getTitle());
         holder.contents.setText(mData.getDate());
         holder.date.setText(mData.getContents());
-        holder.display.setText(mData.getDisplay_name());
+        holder.display.setText(mData.getDisplay_Name());
 
         if (mData.getImg_contents() != null) {
             holder.rela.setVisibility(View.VISIBLE);
+            Log.e("Debuged_sewol",mData.getImg_contents());
         } else{
             holder.rela.setVisibility(View.GONE);
         }

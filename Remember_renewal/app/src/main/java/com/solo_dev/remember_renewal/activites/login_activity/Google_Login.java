@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal.login_activity;
+package com.solo_dev.remember_renewal.activites.login_activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.solo_dev.remember_renewal.MainActivity;
+import com.solo_dev.remember_renewal.activites.MainActivity;
 import com.solo_dev.remember_renewal.R;
 import com.solo_dev.remember_renewal.databinding.ActivityGoogleLoginBinding;
 

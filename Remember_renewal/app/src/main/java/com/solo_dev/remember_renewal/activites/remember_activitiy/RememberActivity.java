@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal.remember_activitiy;
+package com.solo_dev.remember_renewal.activites.remember_activitiy;
 
 import androidx.appcompat.app.AppCompatActivity;
 

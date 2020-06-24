@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal.Write_Activity.fragment;
+package com.solo_dev.remember_renewal.activites.write_activity.fragment;
 
 import android.app.AlertDialog;
 
@@ -25,8 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.solo_dev.remember_renewal.R;
-import com.solo_dev.remember_renewal.Write_Activity.adapter.Data_Adapter;
-import com.solo_dev.remember_renewal.Write_Activity.data_item.Data_Write;
+import com.solo_dev.remember_renewal.activites.write_activity.adapter.Data_Adapter;
+import com.solo_dev.remember_renewal.activites.write_activity.data_item.Data_Write;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -121,8 +121,8 @@ public class WriteFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Data_Write write_data = dataSnapshot.getValue(Data_Write.class);
 
-                if (write_data.isViewing()) {
-                    write.add(new Data_Write(write_data.getTitle(), write_data.getDate(), write_data.getContents(), write_data.getImg_contents(), write_data.getLiked(), write_data.getReported(), write_data.getGetkeys(), write_data.isViewing(), write_data.getUsers(),write_data.getDisplay_name()));
+                if (write_data.getViewing()) {
+                    write.add(new Data_Write(write_data.getTitle(), write_data.getDate(), write_data.getContents(), write_data.getImg_contents(), write_data.getLiked(), write_data.getReported(), write_data.getGetkeys(), write_data.getViewing(), write_data.getUsers(),write_data.getDisplay_Name()));
                     adapter_write.notifyDataSetChanged();
                     repoerted_out(write_data);
                 }
@@ -154,8 +154,8 @@ public class WriteFragment extends Fragment {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Data_Write write_data = dataSnapshot.getValue(Data_Write.class);
-                if (write_data.isViewing()) {
-                    write.add(new Data_Write(write_data.getTitle(), write_data.getDate(), write_data.getContents(), write_data.getImg_contents(), write_data.getLiked(), write_data.getReported(), write_data.getGetkeys(), write_data.isViewing(), write_data.getUsers(),write_data.getDisplay_name()));
+                if (write_data.getViewing()) {
+                    write.add(new Data_Write(write_data.getTitle(), write_data.getDate(), write_data.getContents(), write_data.getImg_contents(), write_data.getLiked(), write_data.getReported(), write_data.getGetkeys(), write_data.getViewing(), write_data.getUsers(),write_data.getDisplay_Name()));
                     adapter_write.notifyDataSetChanged();
                     repoerted_out(write_data);
                 }

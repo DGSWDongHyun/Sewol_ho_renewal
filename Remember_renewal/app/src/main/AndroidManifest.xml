@@ -13,11 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".loadingactivity.LoadingActivity"></activity>
-        <activity android:name=".remember_activitiy.RememberActivity" />
-        <activity android:name=".login_activity.Google_Login" />
-        <activity android:name=".Write_Activity.WriteActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".activites.loading_activity.LoadingActivity"></activity>
+        <activity android:name=".activites.remember_activitiy.RememberActivity" />
+        <activity android:name=".activites.login_activity.Google_Login" />
+        <activity android:name=".activites.write_activity.WriteActivity" />
+        <activity android:name=".activites.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

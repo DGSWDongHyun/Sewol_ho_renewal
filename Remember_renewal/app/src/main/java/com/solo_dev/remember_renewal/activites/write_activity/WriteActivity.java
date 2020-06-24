@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal.Write_Activity;
+package com.solo_dev.remember_renewal.activites.write_activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,8 +37,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.solo_dev.remember_renewal.R;
-import com.solo_dev.remember_renewal.Write_Activity.data_item.Data_Write;
-import com.solo_dev.remember_renewal.Write_Activity.fragment.WriteFragment;
+import com.solo_dev.remember_renewal.activites.write_activity.data_item.Data_Write;
+import com.solo_dev.remember_renewal.activites.write_activity.fragment.WriteFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -167,26 +167,26 @@ public class WriteActivity extends AppCompatActivity{
         send_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    if(!ed_title.getText().toString().isEmpty() || !ed_contents.getText().toString().isEmpty()) {
-                        DatabaseReference task = databaseReference.child("write").push();
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        Data_Write data = new Data_Write(ed_title.getText().toString(), ed_contents.getText().toString(), getTime(), storage2, 0, 0, task.getKey(), viewing, user.getEmail(),user.getDisplayName());
-                        task.setValue(data);
-                        storage2 = null;
+                if(!ed_title.getText().toString().isEmpty() || !ed_contents.getText().toString().isEmpty()) {
+                    DatabaseReference task = databaseReference.child("write").push();
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    Data_Write data = new Data_Write(ed_title.getText().toString(), ed_contents.getText().toString(), getTime(), storage2, 0, 0, task.getKey(), viewing, user.getEmail(),user.getDisplayName());
+                    task.setValue(data);
+                    storage2 = null;
 
-                        LayoutInflater inflater = getLayoutInflater();
-                        View toastDesign = inflater.inflate(R.layout.toast, (ViewGroup)findViewById(R.id.toast_design_root)); //toast_design.xml 파일의 toast_design_root 속성을 로드
+                    LayoutInflater inflater = getLayoutInflater();
+                    View toastDesign = inflater.inflate(R.layout.toast, (ViewGroup)findViewById(R.id.toast_design_root)); //toast_design.xml 파일의 toast_design_root 속성을 로드
 
-                        ImageView imgs = toastDesign.findViewById(R.id.img_toast);
-                        Glide.with(getApplicationContext()).load(R.raw.ship_going).into(imgs);
-                        Toast toast = new Toast(getApplicationContext());
-                        toast.setGravity(Gravity.CENTER, 0, 0); // CENTER를 기준으로 0, 0 위치에 메시지 출력
-                        toast.setDuration(Toast.LENGTH_LONG);
-                        toast.setView(toastDesign);
-                        toast.show();
+                    ImageView imgs = toastDesign.findViewById(R.id.img_toast);
+                    Glide.with(getApplicationContext()).load(R.raw.ship_going).into(imgs);
+                    Toast toast = new Toast(getApplicationContext());
+                    toast.setGravity(Gravity.CENTER, 0, 0); // CENTER를 기준으로 0, 0 위치에 메시지 출력
+                    toast.setDuration(Toast.LENGTH_LONG);
+                    toast.setView(toastDesign);
+                    toast.show();
 
-                        mDialog.cancel();
-                    }
+                    mDialog.cancel();
+                }
             }
         });
 
