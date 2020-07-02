@@ -1,10 +1,10 @@
-package com.solo_dev.remember_renewal.activites.remember_activitiy;
+package com.solo_dev.remember_renewal_.activites.remember_activitiy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.solo_dev.remember_renewal.R;
+import com.solo_dev.remember_renewal_.R;
 
 import android.animation.ObjectAnimator;
 import android.content.pm.ActivityInfo;

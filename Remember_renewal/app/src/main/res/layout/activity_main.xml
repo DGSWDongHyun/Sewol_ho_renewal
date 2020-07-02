@@ -242,9 +242,10 @@
             android:id="@+id/material_design_floating_action_menu_item2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_label="세월호 추모하기 [2]"
+            android:src="@drawable/ic_sentiment_dissatisfied_24px"
             fab:fab_colorNormal="@color/FAB_Nomal"
             fab:fab_colorPressed="@color/FAB_Shadow"
+            fab:fab_label="세월호 추모하기 [2]"
             fab:fab_shadowColor="@color/FAB_Shadow"
             fab:fab_size="mini" />
 
@@ -252,9 +253,10 @@
             android:id="@+id/material_design_floating_action_menu_item1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_label="글쓰기 [1]"
+            android:src="@drawable/ic_create_24px"
             fab:fab_colorNormal="@color/FAB_Nomal"
             fab:fab_colorPressed="@color/FAB_Shadow"
+            fab:fab_label="글쓰기 [1]"
             fab:fab_shadowColor="@color/FAB_Shadow"
             fab:fab_size="mini" />
     </com.github.clans.fab.FloatingActionMenu>

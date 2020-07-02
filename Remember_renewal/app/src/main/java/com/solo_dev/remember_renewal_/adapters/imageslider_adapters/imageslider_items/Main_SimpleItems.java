@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal.imageslider_adapters.imageslider_items;
+package com.solo_dev.remember_renewal_.adapters.imageslider_adapters.imageslider_items;
 
 
 public class Main_SimpleItems {

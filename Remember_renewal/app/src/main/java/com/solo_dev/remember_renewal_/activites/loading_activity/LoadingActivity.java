@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal.activites.loading_activity;
+package com.solo_dev.remember_renewal_.activites.loading_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,8 @@ import android.os.Handler;
 import android.view.WindowManager;
 
 import com.bumptech.glide.Glide;
-import com.solo_dev.remember_renewal.R;
-import com.solo_dev.remember_renewal.databinding.ActivityLoadingBinding;
+import com.solo_dev.remember_renewal_.R;
+import com.solo_dev.remember_renewal_.databinding.ActivityLoadingBinding;
 
 public class LoadingActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 2500;

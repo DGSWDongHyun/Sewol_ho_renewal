@@ -7,13 +7,11 @@ android {
     buildToolsVersion "29.0.2"
     viewBinding.enabled = true
     defaultConfig {
-        applicationId "com.solo_dev.remember_renewal"
+        applicationId "com.solo_dev.remember_renewal_"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 3
-        versionName "1.2"
-        viewBinding.
-                enabled = true
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

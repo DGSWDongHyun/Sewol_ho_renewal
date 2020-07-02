@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal;
+package com.solo_dev.remember_renewal_;
 
 import org.junit.Test;
 
