@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal_.activites.loading_activity;
+package com.solo_dev.remember_renewal_.view.activity.loading_activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal_.adapters.imageslider_adapters;
+package com.solo_dev.remember_renewal_.adapter.slider;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.smarteist.autoimageslider.SliderViewAdapter;
-import com.solo_dev.remember_renewal_.adapters.imageslider_adapters.imageslider_items.Main_SimpleItems;
 import com.solo_dev.remember_renewal_.R;
+import com.solo_dev.remember_renewal_.view.data.slider.Main_SimpleItems;
 
 import java.util.ArrayList;
 import java.util.List;

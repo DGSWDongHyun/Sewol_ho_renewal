@@ -1,10 +1,11 @@
-package com.solo_dev.remember_renewal_.activites.login_activity;
+package com.solo_dev.remember_renewal_.view.activity.login_activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.solo_dev.remember_renewal_.activites.MainActivity;
+import com.solo_dev.remember_renewal_.view.activity.MainActivity;
 import com.solo_dev.remember_renewal_.R;
 import com.solo_dev.remember_renewal_.databinding.ActivityGoogleLoginBinding;
 
@@ -75,6 +76,7 @@ public class Google_Login extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
+                Log.e("Error, ", e.getMessage());
             }
         }
     }

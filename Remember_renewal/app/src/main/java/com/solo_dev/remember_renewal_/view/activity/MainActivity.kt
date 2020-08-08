@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal_.activites
+package com.solo_dev.remember_renewal_.view.activity
 
 import android.Manifest
 import android.content.Context
@@ -23,29 +23,36 @@ import com.smarteist.autoimageslider.IndicatorAnimations
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 import com.solo_dev.remember_renewal_.R
-import com.solo_dev.remember_renewal_.adapters.imageslider_adapters.Main_SimpleAdapter
-import com.solo_dev.remember_renewal_.activites.loading_activity.LoadingActivity
-import com.solo_dev.remember_renewal_.activites.login_activity.Google_Login
-import com.solo_dev.remember_renewal_.activites.remember_activitiy.RememberActivity
-import com.solo_dev.remember_renewal_.activites.write_activity.WriteActivity
+import com.solo_dev.remember_renewal_.adapter.slider.Main_SimpleAdapter
+import com.solo_dev.remember_renewal_.view.activity.loading_activity.LoadingActivity
+import com.solo_dev.remember_renewal_.view.activity.login_activity.Google_Login
+import com.solo_dev.remember_renewal_.view.activity.remember_activitiy.RememberActivity
+import com.solo_dev.remember_renewal_.view.activity.write_activity.WriteActivity
 import com.wajahatkarim3.easyflipview.EasyFlipView.OnFlipAnimationListener
 import com.wooplr.spotlight.SpotlightView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private var NORMAL = 0;
+    private var CLOSED = 1;
+
     private var mAuth: FirebaseAuth? = null
     var firstrun = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main)
+
         Initialize()
 
         //more method defined.. **
         Initialize_music()
         flipMusic()
         clickListener_FAB()
+
         mAuth = FirebaseAuth.getInstance()
         if (mAuth!!.currentUser == null) {
             finish()
@@ -190,6 +197,9 @@ class MainActivity : AppCompatActivity() {
     private fun Initialize() {
 
         // when we initialize our layout, almost used this method **
+
+
+
 
         // my auto flip card library initialize**
         flip_card!!.setToHorizontalType()

@@ -13,11 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.solo_dev.remember_renewal_.activites.loading_activity.LoadingActivity"></activity>
-        <activity android:name="com.solo_dev.remember_renewal_.activites.remember_activitiy.RememberActivity" />
-        <activity android:name="com.solo_dev.remember_renewal_.activites.login_activity.Google_Login" />
-        <activity android:name="com.solo_dev.remember_renewal_.activites.write_activity.WriteActivity" />
-        <activity android:name="com.solo_dev.remember_renewal_.activites.MainActivity">
+        <activity android:name="com.solo_dev.remember_renewal_.view.activity.loading_activity.LoadingActivity"></activity>
+        <activity android:name="com.solo_dev.remember_renewal_.view.activity.remember_activitiy.RememberActivity" />
+        <activity android:name="com.solo_dev.remember_renewal_.view.activity.login_activity.Google_Login" />
+        <activity android:name="com.solo_dev.remember_renewal_.view.activity.write_activity.WriteActivity" />
+        <activity android:name="com.solo_dev.remember_renewal_.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

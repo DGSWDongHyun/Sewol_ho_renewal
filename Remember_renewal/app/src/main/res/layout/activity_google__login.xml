@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sewol_login_bg"
+    android:background="@drawable/sky_ground"
     android:gravity="bottom|center_horizontal"
     android:orientation="vertical">
 
@@ -13,12 +13,30 @@
         android:id="@+id/signInButton"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.801">
 
     </com.google.android.gms.common.SignInButton>
 
-    <Space
+    <TextView
+        android:id="@+id/textView11"
         android:layout_width="wrap_content"
-        android:layout_height="180dp" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/main_font"
+        android:gravity="center"
+        android:text="혹여 우리 만남들이 꿈은 아니었는지\n그대 함께 있던 순간이 너무나 아득해요."
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/signInButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.261" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal_.activites.write_activity.fragment;
+package com.solo_dev.remember_renewal_.view.fragment;
 
 import android.app.AlertDialog;
 
@@ -25,8 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.solo_dev.remember_renewal_.R;
-import com.solo_dev.remember_renewal_.activites.write_activity.adapter.Data_Adapter;
-import com.solo_dev.remember_renewal_.activites.write_activity.data_item.Data_Write;
+import com.solo_dev.remember_renewal_.adapter.write.Data_Adapter;
+import com.solo_dev.remember_renewal_.view.data.write.Data_Write;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
