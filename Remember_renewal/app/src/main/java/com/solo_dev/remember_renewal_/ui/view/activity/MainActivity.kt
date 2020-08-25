@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal_.view.activity
+package com.solo_dev.remember_renewal_.ui.view.activity
 
 import android.Manifest
 import android.content.Context
@@ -23,11 +23,11 @@ import com.smarteist.autoimageslider.IndicatorAnimations
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 import com.solo_dev.remember_renewal_.R
-import com.solo_dev.remember_renewal_.adapter.slider.Main_SimpleAdapter
-import com.solo_dev.remember_renewal_.view.activity.loading_activity.LoadingActivity
-import com.solo_dev.remember_renewal_.view.activity.login_activity.Google_Login
-import com.solo_dev.remember_renewal_.view.activity.remember_activitiy.RememberActivity
-import com.solo_dev.remember_renewal_.view.activity.write_activity.WriteActivity
+import com.solo_dev.remember_renewal_.ui.adapter.slider.Main_SimpleAdapter
+import com.solo_dev.remember_renewal_.ui.view.activity.loading_activity.LoadingActivity
+import com.solo_dev.remember_renewal_.ui.view.activity.login_activity.Google_Login
+import com.solo_dev.remember_renewal_.ui.view.activity.remember_activitiy.RememberActivity
+import com.solo_dev.remember_renewal_.ui.view.activity.write_activity.WriteActivity
 import com.wajahatkarim3.easyflipview.EasyFlipView.OnFlipAnimationListener
 import com.wooplr.spotlight.SpotlightView
 import kotlinx.android.synthetic.main.activity_main.*

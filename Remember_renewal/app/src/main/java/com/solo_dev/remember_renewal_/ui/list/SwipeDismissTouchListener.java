@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.solo_dev.remember_renewal_.view.list;
+package com.solo_dev.remember_renewal_.ui.list;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

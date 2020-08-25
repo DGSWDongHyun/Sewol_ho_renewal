@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal_.view.activity.write_activity;
+package com.solo_dev.remember_renewal_.ui.view.activity.write_activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,8 +37,8 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.solo_dev.remember_renewal_.R;
-import com.solo_dev.remember_renewal_.view.data.write.Data_Write;
-import com.solo_dev.remember_renewal_.view.fragment.WriteFragment;
+import com.solo_dev.remember_renewal_.data.write.Data_Write;
+import com.solo_dev.remember_renewal_.ui.view.fragment.WriteFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

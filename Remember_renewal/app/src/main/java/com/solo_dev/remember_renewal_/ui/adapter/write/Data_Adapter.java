@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal_.adapter.write;
+package com.solo_dev.remember_renewal_.ui.adapter.write;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -25,8 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.solo_dev.remember_renewal_.R;
-import com.solo_dev.remember_renewal_.view.data.write.Data_Write;
-import com.solo_dev.remember_renewal_.view.data.write.Reported_Data;
+import com.solo_dev.remember_renewal_.data.write.Data_Write;
+import com.solo_dev.remember_renewal_.data.write.Reported_Data;
 
 import java.util.List;
 

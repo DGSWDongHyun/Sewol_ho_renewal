@@ -1,4 +1,4 @@
-package com.solo_dev.remember_renewal_.glide_module;
+package com.solo_dev.remember_renewal_.ui.glide_module;
 
 import android.content.Context;
 
