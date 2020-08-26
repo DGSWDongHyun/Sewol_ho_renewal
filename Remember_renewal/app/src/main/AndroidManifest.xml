@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.solo_dev.remember_renewal_">
+    package="com.solo_dev.remember_final">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -13,11 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.solo_dev.remember_renewal_.ui.view.activity.loading_activity.LoadingActivity"></activity>
-        <activity android:name="com.solo_dev.remember_renewal_.ui.view.activity.remember_activitiy.RememberActivity" />
-        <activity android:name="com.solo_dev.remember_renewal_.ui.view.activity.login_activity.Google_Login" />
-        <activity android:name="com.solo_dev.remember_renewal_.ui.view.activity.write_activity.WriteActivity" />
-        <activity android:name="com.solo_dev.remember_renewal_.ui.view.activity.MainActivity">
+        <activity android:name="com.solo_dev.remember_final.ui.view.activity.loading_activity.LoadingActivity"></activity>
+        <activity android:name="com.solo_dev.remember_final.ui.view.activity.remember_activitiy.RememberActivity" />
+        <activity android:name="com.solo_dev.remember_final.ui.view.activity.login_activity.Google_Login" />
+        <activity android:name="com.solo_dev.remember_final.ui.view.activity.write_activity.WriteActivity" />
+        <activity android:name="com.solo_dev.remember_final.ui.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
