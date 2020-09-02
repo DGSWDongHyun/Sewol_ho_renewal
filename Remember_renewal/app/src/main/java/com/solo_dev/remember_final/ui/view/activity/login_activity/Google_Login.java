@@ -21,7 +21,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.solo_dev.remember_final.ui.view.activity.MainActivity;
+import com.solo_dev.remember_final.ui.view.activity.main_activity.MainActivity;
 import com.solo_dev.remember_final.R;
 import com.solo_dev.remember_final.databinding.ActivityGoogleLoginBinding;
 

@@ -1,4 +1,4 @@
-package com.solo_dev.remember_final.ui.view.activity
+package com.solo_dev.remember_final.ui.view.activity.main_activity
 
 import android.Manifest
 import android.content.Context
@@ -195,12 +195,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun Initialize() {
-
         // when we initialize our layout, almost used this method **
-
-
-
-
         // my auto flip card library initialize**
         flip_card!!.setToHorizontalType()
         flip_card!!.isAutoFlipBack = false

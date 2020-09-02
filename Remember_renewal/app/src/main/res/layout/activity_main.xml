@@ -7,7 +7,7 @@
     tools:viewBindingIgnore="true"
     android:layout_height="match_parent"
     android:background="@drawable/sewol_main"
-    tools:context=".ui.view.activity.MainActivity">
+    tools:context=".ui.view.activity.main_activity.MainActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
