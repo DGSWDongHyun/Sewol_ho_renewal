@@ -7,7 +7,7 @@
     tools:viewBindingIgnore="true"
     android:layout_height="match_parent"
     android:background="@drawable/sewol_main"
-    tools:context=".ui.view.activity.main_activity.MainActivity">
+    tools:context=".ui.view.activity.main.MainActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -64,10 +64,9 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginBottom="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,32 +80,41 @@
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="20dp" />
+                        android:layout_height="10dp" />
 
                     <TextView
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/main_font"
-                        android:text="세월호 사건이 뭔가요?"
+                        android:text="세월호로 인해서 다른 분들을 구하시려다 돌아가신 9분."
                         android:textColor="@android:color/black" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
 
                     <ScrollView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <LinearLayout
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/n"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
+                            android:layout_height="match_parent">
 
                             <androidx.cardview.widget.CardView
-                                android:layout_width="325dp"
+                                android:id="@+id/cardView3"
+                                android:layout_width="0dp"
                                 android:layout_height="240dp"
-                                android:layout_margin="15dp"
-                                app:cardCornerRadius="2dp">
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:visibility="visible"
+                                app:cardCornerRadius="2dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <com.smarteist.autoimageslider.SliderView
                                     android:id="@+id/slider"
@@ -130,58 +138,7 @@
 
                             </androidx.cardview.widget.CardView>
 
-
-                            <Space
-                                android:layout_width="wrap_content"
-                                android:layout_height="10dp" />
-
-                            <TextView
-                                android:id="@+id/textView3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/main_font"
-                                android:gravity="center"
-                                android:text="세월호와 싸우고, 다른 분들을 구하다가 돌아가신 아홉 분들."
-                                android:textSize="10sp"
-                                tools:layout_editor_absoluteY="10dp" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp"
-                                tools:layout_editor_absoluteY="22dp" />
-
-                            <TextView
-                                android:id="@+id/info"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:fontFamily="@font/main_font"
-                                android:text="@string/info_sewol"
-                                android:textColor="@android:color/black"
-                                android:textSize="13.5sp"
-                                tools:layout_editor_absoluteY="32dp" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp"
-                                tools:layout_editor_absoluteY="124dp" />
-
-                            <TextView
-                                android:id="@+id/hyper_click"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="8dp"
-                                android:fontFamily="@font/main_font"
-                                android:text="더 알아볼래요."
-                                android:textSize="10sp"
-                                tools:layout_editor_absoluteY="134dp" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="25dp"
-                                tools:layout_editor_absoluteY="146dp" />
-
-                        </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </ScrollView>
 
                     <Space
