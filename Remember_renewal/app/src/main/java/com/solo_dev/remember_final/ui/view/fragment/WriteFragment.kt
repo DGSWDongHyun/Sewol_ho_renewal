@@ -39,7 +39,7 @@ class WriteFragment : Fragment() {
         mRefresh = inflate.findViewById(R.id.swipe)
         list_written = inflate.findViewById(R.id.write_list)
         adapter_write = Data_Adapter(activity, write)
-        list_written.setAdapter(adapter_write)
+        list_written!!.setAdapter(adapter_write)
         val user = FirebaseAuth.getInstance().currentUser
         val touchListener = SwipeDismissListViewTouchListener(list_written,
                 object : SwipeDismissListViewTouchListener.DismissCallbacks {
@@ -63,14 +63,14 @@ class WriteFragment : Fragment() {
                         }
                     }
                 })
-        list_written.setOnTouchListener(touchListener)
-        list_written.setOnScrollListener(touchListener.makeScrollListener())
-        mRefresh.setOnRefreshListener(OnRefreshListener {
+        list_written!!.setOnTouchListener(touchListener)
+        list_written!!.setOnScrollListener(touchListener.makeScrollListener())
+        mRefresh!!.setOnRefreshListener(OnRefreshListener {
             reading_data()
-            mRefresh.setRefreshing(false)
+            mRefresh!!.setRefreshing(false)
         })
         initialize()
-        list_written.setOnItemClickListener(OnItemClickListener { parent, v, position, id ->
+        list_written!!.setOnItemClickListener(OnItemClickListener { parent, v, position, id ->
             val (Title, contents1, Date, img_contents) = parent.getItemAtPosition(position) as Data_Write
             val innerView = layoutInflater.inflate(R.layout.details_dialog, null)
             val mDialog = AlertDialog.Builder(activity)
