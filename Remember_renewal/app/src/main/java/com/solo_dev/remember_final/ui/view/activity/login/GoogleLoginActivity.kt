@@ -17,10 +17,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.solo_dev.remember_final.R
 import com.solo_dev.remember_final.databinding.ActivityGoogleLoginBinding
-import com.solo_dev.remember_final.ui.view.activity.login.Google_Login
 import com.solo_dev.remember_final.ui.view.activity.main.MainActivity
 
-class Google_Login : AppCompatActivity() {
+class GoogleLoginActivity : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
     private var mGoogleSignInClient: GoogleSignInClient? = null
     private var googleLoginBinding: ActivityGoogleLoginBinding? = null
@@ -30,6 +29,7 @@ class Google_Login : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
         googleLoginBinding = ActivityGoogleLoginBinding.inflate(layoutInflater)
         setContentView(googleLoginBinding!!.root)
+
         mAuth = FirebaseAuth.getInstance()
         if (mAuth!!.currentUser != null) {
             finish()
@@ -74,10 +74,10 @@ class Google_Login : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         val user = mAuth!!.currentUser
-                        Toast.makeText(this@Google_Login, "로그인 되었습니다, 환영합니다! " + user!!.displayName + "님!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@GoogleLoginActivity, "로그인 되었습니다, 환영합니다! " + user!!.displayName + "님!", Toast.LENGTH_LONG).show()
                         updateUI(user)
                     } else {
-                        Toast.makeText(this@Google_Login, " 로그인에 실패했습니다. 기존 가입 계정은 문의를 넣어주시길 바랍니다.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@GoogleLoginActivity, " 로그인에 실패했습니다. 기존 가입 계정은 문의를 넣어주시길 바랍니다.", Toast.LENGTH_LONG).show()
                         updateUI(null)
                     }
                 }

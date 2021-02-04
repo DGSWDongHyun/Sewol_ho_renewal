@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.solo_dev.remember_final.ui.view.activity.intro.LoadingActivity"></activity>
         <activity android:name="com.solo_dev.remember_final.ui.view.activity.remember.RememberActivity" />
-        <activity android:name="com.solo_dev.remember_final.ui.view.activity.login.Google_Login" />
+        <activity android:name="com.solo_dev.remember_final.ui.view.activity.login.GoogleLoginActivity" />
         <activity android:name="com.solo_dev.remember_final.ui.view.activity.write.WriteActivity" />
         <activity android:name="com.solo_dev.remember_final.ui.view.activity.main.MainActivity">
             <intent-filter>

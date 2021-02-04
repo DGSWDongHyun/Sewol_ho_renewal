@@ -4,153 +4,10 @@
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    tools:viewBindingIgnore="true"
     android:layout_height="match_parent"
-    android:background="@drawable/sewol_main"
-    tools:context=".ui.view.activity.main.MainActivity">
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/GRAY_ground"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar_main"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@color/GRAY_ground"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ToolbarTheme"
-            app:logo="@drawable/sewol_ribbon" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
-
-        <com.wajahatkarim3.easyflipview.EasyFlipView
-            android:id="@+id/flip_card"
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            app:autoFlipBack="true"
-            app:autoFlipBackTime="1000"
-            app:flipDuration="400"
-            app:flipEnabled="true"
-            app:flipFrom="front"
-            app:flipOnTouch="true"
-            app:flipType="vertical">
-
-            <!-- Back Layout Goes Here -->
-            <include
-                layout="@layout/back_flip"
-                android:background="@drawable/radius" />
-
-            <!-- Front Layout Goes Here -->
-            <include
-                layout="@layout/front_flip"
-                android:background="@drawable/radius" />
-
-        </com.wajahatkarim3.easyflipview.EasyFlipView>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="25dp" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
-
-                    <TextView
-                        android:id="@+id/title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/main_font"
-                        android:text="세월호로 인해서 다른 분들을 구하시려다 돌아가신 9분."
-                        android:textColor="@android:color/black" />
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="10dp" />
-
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/n"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/cardView3"
-                                android:layout_width="0dp"
-                                android:layout_height="240dp"
-                                android:layout_marginStart="20dp"
-                                android:layout_marginEnd="20dp"
-                                android:visibility="visible"
-                                app:cardCornerRadius="2dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
-
-                                <com.smarteist.autoimageslider.SliderView
-                                    android:id="@+id/slider"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    app:sliderAnimationDuration="600"
-                                    app:sliderAutoCycleDirection="back_and_forth"
-                                    app:sliderAutoCycleEnabled="true"
-                                    app:sliderIndicatorAnimationDuration="600"
-                                    app:sliderIndicatorGravity="center_horizontal|bottom"
-                                    app:sliderIndicatorMargin="15dp"
-                                    app:sliderIndicatorOrientation="horizontal"
-                                    app:sliderIndicatorPadding="3dp"
-                                    app:sliderIndicatorRadius="2dp"
-                                    app:sliderIndicatorSelectedColor="#5A5A5A"
-                                    app:sliderIndicatorUnselectedColor="#FFF"
-                                    app:sliderScrollTimeInSec="1"
-                                    app:sliderStartAutoCycle="true">
-
-                                </com.smarteist.autoimageslider.SliderView>
-
-                            </androidx.cardview.widget.CardView>
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </ScrollView>
-
-                    <Space
-                        android:layout_width="wrap_content"
-                        android:layout_height="20dp" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </LinearLayout>
+    android:background="@android:color/white"
+    tools:context=".ui.view.activity.main.MainActivity"
+    tools:viewBindingIgnore="true">
 
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/material_design_android_floating_action_menu"
@@ -158,10 +15,12 @@
         android:layout_height="0dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         fab:menu_animationDelayPerItem="55"
         fab:menu_backgroundColor="@android:color/transparent"
         fab:menu_buttonSpacing="0dp"
@@ -215,6 +74,52 @@
             fab:fab_label="글쓰기 [1]"
             fab:fab_shadowColor="@color/FAB_Shadow"
             fab:fab_size="mini" />
+
     </com.github.clans.fab.FloatingActionMenu>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오늘은 n월 n일 입니다."
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.112"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.357" />
+
+            <TextView
+                android:id="@+id/leftDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="4월 16일까지 .. n일 남았습니다."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.108"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

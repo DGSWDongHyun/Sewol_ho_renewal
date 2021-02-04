@@ -17,24 +17,22 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
-import com.smarteist.autoimageslider.IndicatorAnimations
-import com.smarteist.autoimageslider.SliderAnimations
-import com.smarteist.autoimageslider.SliderView
 import com.solo_dev.remember_final.R
-import com.solo_dev.remember_final.ui.adapter.slider.Main_SimpleAdapter
 import com.solo_dev.remember_final.ui.view.activity.intro.LoadingActivity
-import com.solo_dev.remember_final.ui.view.activity.login.Google_Login
+import com.solo_dev.remember_final.ui.view.activity.login.GoogleLoginActivity
 import com.solo_dev.remember_final.ui.view.activity.remember.RememberActivity
 import com.solo_dev.remember_final.ui.view.activity.write.WriteActivity
-import com.wajahatkarim3.easyflipview.EasyFlipView.OnFlipAnimationListener
 import com.wooplr.spotlight.SpotlightView
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private var NORMAL = 0;
     private var CLOSED = 1;
-
+    private var dateTextView : TextView?= null
+    private var leftDateTextView : TextView?= null
     private var mAuth: FirebaseAuth? = null
     var firstrun = false
 
@@ -44,18 +42,15 @@ class MainActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main)
 
-        Initialize()
+        initLayout()
+//        initializeMusic()
+        clickFAB()
 
-        //more method defined.. **
-        Initialize_music()
-        flipMusic()
-        clickListener_FAB()
-
-        mAuth = FirebaseAuth.getInstance()
-        if (mAuth!!.currentUser == null) {
-            finish()
-            startActivity(Intent(this, Google_Login::class.java))
-        }
+//        mAuth = FirebaseAuth.getInstance()
+//        if (mAuth!!.currentUser == null) {
+//            finish()
+//            startActivity(Intent(this, GoogleLoginActivity::class.java))
+//        }
         val i = Intent(applicationContext, LoadingActivity::class.java)
         startActivity(i)
         if (ContextCompat.checkSelfPermission(this,
@@ -87,7 +82,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun clickListener_FAB() {
+    private fun initLayout() {
+
+        val dateNow = Date(System.currentTimeMillis())
+        dateTextView = findViewById(R.id.dateTextView)
+        leftDateTextView = findViewById(R.id.leftDateTextView)
+
+        dateTextView?.text = "오늘은 "+returnDate("MM")+"월 "+returnDate("dd")+"일 입니다."
+
+    }
+
+    private fun calculateDate(dateF : Date, dateS : Date) : String {
+
+        val calculateLong = dateF.time - dateS.time
+        val calculateDays = calculateLong / (24*60*60*1000)
+
+        val dateCal = Math.abs(calculateDays)
+
+        return "4월 16일까지.. '$dateCal'일 남았습니다."
+    }
+
+    private fun returnDate(format : String) : String {
+        return SimpleDateFormat(format).format(Date(System.currentTimeMillis()))
+    }
+
+    private fun clickFAB() {
         material_design_floating_action_menu_item1!!.setOnClickListener {
             if (firstrun) {
                 SpotlightView.Builder(this@MainActivity)
@@ -192,51 +211,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun Initialize() {
-        // when we initialize our layout, almost used this method **
-        // my auto flip card library initialize**
-        flip_card!!.setToHorizontalType()
-        flip_card!!.isAutoFlipBack = false
-        flip_card!!.flipDuration = 2500
-        firstrun = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE).getBoolean("firstrun", true)
-        slider!!.setSliderAdapter(Main_SimpleAdapter(applicationContext))
-        slider!!.setIndicatorAnimation(IndicatorAnimations.WORM)
-        // set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
-        slider!!.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
-        slider!!.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
-        slider!!.indicatorSelectedColor = Color.WHITE
-        slider!!.indicatorUnselectedColor = Color.GRAY
-        slider!!.scrollTimeInSec = 3
-        // set scroll delay in seconds :
-        slider!!.startAutoCycle()
 
-        // text-view hyper link within html.
-    }
-
-    private fun Initialize_music() {
+    private fun initializeMusic() {
         mp_flip = MediaPlayer.create(this, R.raw.front_flip)
         mp_flip?.isLooping = true
         mp_flip?.start()
     }
 
-
-    private fun flipMusic() {
-
-        // this method is when card flip back / front, play or change music **
-        flip_card!!.onFlipListener = OnFlipAnimationListener { flipView, newCurrentSide ->
-            if (flip_card!!.isBackSide) {
-                mp_flip!!.stop()
-                mp_flip = MediaPlayer.create(applicationContext, R.raw.back_flip)
-                mp_flip?.isLooping = true
-                mp_flip?.start()
-            } else {
-                mp_flip!!.stop()
-                mp_flip = MediaPlayer.create(applicationContext, R.raw.front_flip)
-                mp_flip?.isLooping = true
-                mp_flip?.start()
-            }
-        }
-    }
 
     override fun onBackPressed() {
         val builder = AlertDialog.Builder(this)
@@ -259,7 +240,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     public override fun onDestroy() {
-        mp_flip!!.stop()
+//        mp_flip!!.stop()
         super.onDestroy()
     }
 
