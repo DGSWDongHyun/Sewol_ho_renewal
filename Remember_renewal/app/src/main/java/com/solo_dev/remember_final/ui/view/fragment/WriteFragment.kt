@@ -1,153 +1,199 @@
 package com.solo_dev.remember_final.ui.view.fragment
 
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
+import android.app.ProgressDialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import android.widget.AdapterView.OnItemClickListener
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.solo_dev.remember_final.DetailActivity
 import com.solo_dev.remember_final.R
-import com.solo_dev.remember_final.data.write.Data_Write
-import com.solo_dev.remember_final.ui.adapter.write.Data_Adapter
-import com.solo_dev.remember_final.ui.list.SwipeDismissListViewTouchListener
+import com.solo_dev.remember_final.data.module.FirebaseDataBaseModule
+import com.solo_dev.remember_final.data.module.FirebaseStorageModule
+import com.solo_dev.remember_final.data.module.UIModule
+import com.solo_dev.remember_final.data.write.DataWrite
+import com.solo_dev.remember_final.databinding.FragmentWriteBinding
+import com.solo_dev.remember_final.ui.adapter.write.WriteAdapter
+import com.solo_dev.remember_final.ui.adapter.write.listener.onClickItemListener
+import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.CopyOnWriteArrayList
+import kotlin.collections.ArrayList
+
 
 class WriteFragment : Fragment() {
-    var mRefresh: SwipeRefreshLayout? = null
-    var write: MutableList<Data_Write> = CopyOnWriteArrayList()
-    var adapter_write: Data_Adapter? = null
-    var list_written: ListView? = null
+
+    var write = ArrayList<DataWrite>()
+    var adapterWrite: WriteAdapter? = null
     var firebaseDatabase = FirebaseDatabase.getInstance()
     var databaseReference = firebaseDatabase.reference
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val inflate = inflater.inflate(R.layout.fragment_write, container, false)
-        mRefresh = inflate.findViewById(R.id.swipe)
-        list_written = inflate.findViewById(R.id.write_list)
-        adapter_write = Data_Adapter(activity, write)
-        list_written!!.setAdapter(adapter_write)
-        val user = FirebaseAuth.getInstance().currentUser
-        val touchListener = SwipeDismissListViewTouchListener(list_written,
-                object : SwipeDismissListViewTouchListener.DismissCallbacks {
-                    override fun canDismiss(position: Int): Boolean {
-                        return true
-                    }
+    private lateinit var binding : FragmentWriteBinding
+    val SCROLLING_UP = -1
+    var selectImage: Button? = null
+    var storagePath : String? = null
+    var viewing = true
+    private var filePath: Uri? = null
+    var innerView: View? = null
+    var fabWrite: FloatingActionButton? = null
+    private lateinit var imagePreview : ImageView
 
-                    override fun onDismiss(listView: ListView?, reverseSortedPositions: IntArray) {
-                        for (position in reverseSortedPositions) {
-                            if (write[position].users == user!!.email) {
-                                Toast.makeText(context, write[position].getkeys, Toast.LENGTH_LONG).show()
-                                databaseReference.child("write").child(write[position].getkeys).removeValue().addOnCompleteListener {
-                                    Toast.makeText(context, "Completed", Toast.LENGTH_LONG).show()
-                                    adapter_write!!.notifyDataSetChanged()
-                                    write.removeAt(position)
-                                    adapter_write!!.notifyDataSetChanged()
-                                }.addOnFailureListener { e -> Toast.makeText(context, e.message, Toast.LENGTH_LONG).show() }
-                            } else {
-                                Toast.makeText(context, "글쓴이가 다릅니다.", Toast.LENGTH_LONG).show()
-                            }
-                        }
-                    }
-                })
-        list_written!!.setOnTouchListener(touchListener)
-        list_written!!.setOnScrollListener(touchListener.makeScrollListener())
-        mRefresh!!.setOnRefreshListener(OnRefreshListener {
-            reading_data()
-            mRefresh!!.setRefreshing(false)
-        })
-        initialize()
-        list_written!!.setOnItemClickListener(OnItemClickListener { parent, v, position, id ->
-            val (Title, contents1, Date, img_contents) = parent.getItemAtPosition(position) as Data_Write
-            val innerView = layoutInflater.inflate(R.layout.details_dialog, null)
-            val mDialog = AlertDialog.Builder(activity)
-                    .setView(innerView)
-                    .create()
-            mDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            val title = innerView.findViewById<TextView>(R.id.title)
-            val contents = innerView.findViewById<TextView>(R.id.contents)
-            val date = innerView.findViewById<TextView>(R.id.date)
-            val img_one = innerView.findViewById<ImageView>(R.id.img_contents)
-            val rela = innerView.findViewById<RelativeLayout>(R.id.rela_img)
-            title.text = Title
-            contents.text = Date
-            date.text = contents1
-            if (img_contents != null) {
-                val storageReference = FirebaseStorage.getInstance().reference
-                Glide.with(activity!!).load(storageReference.child(img_contents)).into(img_one)
-            } else {
-                rela.visibility = View.GONE
-            }
-            mDialog.show()
-        })
-        return inflate
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+        binding = FragmentWriteBinding.inflate(inflater, container, false)
+        
+        return binding.root
+      }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        recyclerViewInit()
+
     }
 
-    val time: String
+    private fun recyclerViewInit() {
+        adapterWrite = WriteAdapter(requireActivity(), object : onClickItemListener {
+            override fun onClick(position: Int, data: DataWrite) {
+                val intent = Intent(requireContext(), DetailActivity::class.java)
+                intent.putExtra("title", data.title)
+                intent.putExtra("contents", data.date)
+                intent.putExtra("dateName", "${data.contents} , ${data.displayName}님")
+                if (data.imgContents != null) {
+                    intent.putExtra("img", data.imgContents)
+                }
+                startActivity(intent)
+            }
+        })
+
+        GlobalScope.launch {
+            withContext(Dispatchers.Main) {
+                UIModule.progressDialog(requireActivity(), UIModule.ShowCode.REQUEST_SHOW)
+            }
+            withContext(Dispatchers.IO) {
+                getJobOfDatabase()
+            }
+        }
+
+        binding.writeList.layoutManager = LinearLayoutManager(requireContext())
+        binding.writeList.adapter = adapterWrite
+
+        binding.floatingActionButton.setOnClickListener {
+            createDialog()
+        }
+
+
+    }
+    private suspend fun databaseWithoutDialog() {
+        val getDatabase = FirebaseDataBaseModule.jobGetDatabase
+        val getDatabaseAwait = getDatabase.await()
+
+
+        delay(2000)
+
+        if(getDatabase.isCompleted) {
+            withContext(Dispatchers.Main) {
+                adapterWrite!!.setData(getDatabaseAwait)
+            }
+        }
+        Log.d("TAG_", "inCage : ${getDatabase.isActive}, ${getDatabase.isCompleted}, ${getDatabase.isCancelled}")
+    }
+
+    private suspend fun getJobOfDatabase() {
+        val getDatabase = FirebaseDataBaseModule.jobGetDatabase
+        val getDatabaseAwait = getDatabase.await()
+
+
+        delay(2000)
+
+        if(getDatabase.isCompleted) {
+            withContext(Dispatchers.Main) {
+                UIModule.progressDialog(requireActivity(), UIModule.ShowCode.REQUEST_DISMISS)
+                adapterWrite!!.setData(getDatabaseAwait)
+            }
+        }
+        Log.d("TAG_", "inCage : ${getDatabase.isActive}, ${getDatabase.isCompleted}, ${getDatabase.isCancelled}")
+    }
+
+
+    private fun createDialog() {
+        innerView = layoutInflater.inflate(R.layout.write_dialog, null)
+        val sendBtn = innerView!!.findViewById<Button>(R.id.sendButton)
+        val edTitle: EditText = innerView!!.findViewById(R.id.writeTitle)
+        val edContents: EditText = innerView!!.findViewById(R.id.writeContent)
+        imagePreview = innerView!!.findViewById(R.id.loadImage)
+        selectImage = innerView!!.findViewById(R.id.select)
+        val mDialog = AlertDialog.Builder(requireActivity())
+                .setView(innerView)
+                .create()
+        mDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        selectImage!!.setOnClickListener(View.OnClickListener { v: View? ->
+            val intent = Intent()
+            intent.type = "image/*"
+            intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(Intent.createChooser(intent, "이미지를 선택하세요."), FirebaseDataBaseModule.CODE_UPLOAD)
+        })
+
+        sendBtn.setOnClickListener { v: View? ->
+            if (!edTitle.text.toString().isEmpty() && !edContents.text.toString().isEmpty()) {
+                val task = databaseReference.child("write").push()
+                val user = FirebaseAuth.getInstance().currentUser
+                val data = DataWrite(edTitle.text.toString(), edContents.text.toString(), time, storagePath, 0, 0, viewing, user?.email!!, user.displayName!!)
+                task.setValue(data)
+                storagePath = null
+
+                GlobalScope.launch {
+                    withContext(Dispatchers.Main) {
+                        UIModule.progressDialog(requireActivity(), UIModule.ShowCode.REQUEST_SHOW)
+                    }
+                    withContext(Dispatchers.IO) {
+                        getJobOfDatabase()
+                    }
+                }
+
+                mDialog.cancel()
+            }
+        }
+        mDialog.show()
+    }
+    private val time: String
         get() {
             val now2 = System.currentTimeMillis()
             val date = Date(now2)
-            val CurTimeFormat = SimpleDateFormat("aa HH:mm")
-            return CurTimeFormat.format(date)
+            val curTimeFormat = SimpleDateFormat("aa HH:mm")
+            return curTimeFormat.format(date)
         }
 
-    fun initialize() {
-        databaseReference.child("write").addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                val write_data = dataSnapshot.getValue(Data_Write::class.java)!!
-                if (write_data.viewing) {
-                    write.add(Data_Write(write_data.Title, write_data.Date, write_data.contents, write_data.img_contents, write_data.liked, write_data.reported, write_data.getkeys, write_data.viewing, write_data.users, write_data.Display_Name))
-                    adapter_write!!.notifyDataSetChanged()
-                    repoerted_out(write_data)
-                }
-                adapter_write!!.notifyDataSetChanged()
-            }
-
-            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
-            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
+    override fun onResume() {
+        super.onResume()
+        GlobalScope.launch {
+            databaseWithoutDialog()
+        }
     }
 
-    fun reading_data() {
-        for (idx in write) {
-            write.remove(idx)
-        }
-        databaseReference.child("write").addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                val write_data = dataSnapshot.getValue(Data_Write::class.java)!!
-                if (write_data.viewing) {
-                    write.add(Data_Write(write_data.Title, write_data.Date, write_data.contents, write_data.img_contents, write_data.liked, write_data.reported, write_data.getkeys, write_data.viewing, write_data.users, write_data.Display_Name))
-                    adapter_write!!.notifyDataSetChanged()
-                    repoerted_out(write_data)
-                }
-                adapter_write!!.notifyDataSetChanged()
-            }
-
-            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
-            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })
-    }
-
-    fun repoerted_out(data: Data_Write) {
-        if (data.reported > 10) {
-            databaseReference.child("write").child(data.getkeys).child("viewing").setValue(false)
-        }
+     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+         if(requestCode == FirebaseDataBaseModule.CODE_UPLOAD && resultCode == RESULT_OK) {
+             filePath = data!!.data
+             FirebaseStorageModule.uploadFile(imagePreview, filePath, requireActivity(), requireContext())
+         }
     }
 }

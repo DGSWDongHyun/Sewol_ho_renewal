@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -11,7 +12,9 @@ android {
         targetSdkVersion 29
         versionCode 3
         versionName "1.2"
-        viewBinding.enabled = true
+        viewBinding {
+            enabled = true
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -19,6 +22,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    kotlinOptions{
+        jvmTarget = "1.8"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -56,6 +62,8 @@ dependencies {
     implementation 'com.github.wooplr:Spotlight:1.2.3'
     implementation "androidx.core:core-ktx:+"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation 'com.airbnb.android:lottie:3.6.1'
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
