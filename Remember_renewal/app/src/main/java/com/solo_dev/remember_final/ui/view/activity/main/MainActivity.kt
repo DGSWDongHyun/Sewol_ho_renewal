@@ -3,6 +3,7 @@ package com.solo_dev.remember_final.ui.view.activity.main
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -29,28 +30,24 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var NORMAL = 0;
-    private var CLOSED = 1;
     private var dateTextView : TextView?= null
     private var leftDateTextView : TextView?= null
     private var mAuth: FirebaseAuth? = null
-    var firstrun = false
+    private var firstRun : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main)
 
         initLayout()
-//        initializeMusic()
+        initializeMusic()
         clickFAB()
 
-//        mAuth = FirebaseAuth.getInstance()
-//        if (mAuth!!.currentUser == null) {
-//            finish()
-//            startActivity(Intent(this, GoogleLoginActivity::class.java))
-//        }
+        mAuth = FirebaseAuth.getInstance()
+       if (mAuth!!.currentUser == null) {
+           finish()
+            startActivity(Intent(this, GoogleLoginActivity::class.java))
+        }
         val i = Intent(applicationContext, LoadingActivity::class.java)
         startActivity(i)
         if (ContextCompat.checkSelfPermission(this,
@@ -71,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             MY_PERMISSIONS_REQUEST_FILES -> {
 
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.size > 0
+                if (grantResults.isNotEmpty()
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "승인이 허가되었습니다.", Toast.LENGTH_LONG).show()
                 } else {
@@ -83,12 +80,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initLayout() {
-
         val dateNow = Date(System.currentTimeMillis())
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.MONTH, 4)
+        calendar.set(Calendar.DAY_OF_MONTH, 16)
+
+        val date = Date()
         dateTextView = findViewById(R.id.dateTextView)
         leftDateTextView = findViewById(R.id.leftDateTextView)
-
         dateTextView?.text = "오늘은 "+returnDate("MM")+"월 "+returnDate("dd")+"일 입니다."
+        leftDateTextView?.text = calculateDate(calendar.time, dateNow)
 
     }
 
@@ -107,119 +108,72 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun clickFAB() {
+        firstRun = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE).getBoolean("firstRun", true)
         material_design_floating_action_menu_item1!!.setOnClickListener {
-            if (firstrun) {
-                SpotlightView.Builder(this@MainActivity)
-                        .introAnimationDuration(400)
-                        .performClick(true)
-                        .fadeinTextDuration(400)
-                        .headingTvColor(Color.parseColor("#FFFFFF"))
-                        .headingTvSize(32)
-                        .headingTvText("Remember 2.0을 소개합니다.")
-                        .subHeadingTvColor(Color.parseColor("#ffffff"))
-                        .subHeadingTvSize(16)
-                        .subHeadingTvText("해당 공간은 한 마디 씩 길게, 짧게 쓰는,\n작은 공간입니다.")
-                        .maskColor(Color.parseColor("#dc000000"))
-                        .target(material_design_floating_action_menu_item1)
-                        .lineAnimDuration(400)
-                        .lineAndArcColor(Color.parseColor("#FFFFFF"))
-                        .dismissOnTouch(true)
-                        .dismissOnBackPress(true)
-                        .enableDismissAfterShown(true)
-                        .usageId("FDE!@@#") //UNIQUE ID
-                        .setListener {
-                            SpotlightView.Builder(this@MainActivity)
-                                    .introAnimationDuration(400)
-                                    .performClick(true)
-                                    .fadeinTextDuration(400)
-                                    .headingTvColor(Color.parseColor("#FFFFFF"))
-                                    .headingTvSize(32)
-                                    .headingTvText("Remember 2.0을 소개합니다.")
-                                    .subHeadingTvColor(Color.parseColor("#FFFFFF"))
-                                    .subHeadingTvSize(16)
-                                    .subHeadingTvText("해당 공간은 개발자 소감,\n세월호 304명을 추모하기 위한 곳입니다.")
-                                    .maskColor(Color.parseColor("#dc000000"))
-                                    .target(material_design_floating_action_menu_item2)
-                                    .lineAnimDuration(400)
-                                    .lineAndArcColor(Color.parseColor("#FFFFFF"))
-                                    .dismissOnTouch(true)
-                                    .dismissOnBackPress(true)
-                                    .enableDismissAfterShown(true)
-                                    .usageId("FDE!@@#2") //UNIQUE ID
-                                    .show()
-                            firstrun = false
-                        }
-                        .show()
-                getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
-                        .edit()
-                        .putBoolean("firstrun", false)
-                        .commit()
+            if (firstRun) {
+                buildSpotlight()
             } else {
                 startActivity(Intent(applicationContext, WriteActivity::class.java))
             }
         }
         material_design_floating_action_menu_item2!!.setOnClickListener {
-            if (firstrun) {
-                SpotlightView.Builder(this@MainActivity)
-                        .introAnimationDuration(400)
-                        .performClick(true)
-                        .fadeinTextDuration(400)
-                        .headingTvColor(Color.parseColor("#FFFFFF"))
-                        .headingTvSize(32)
-                        .headingTvText("Remember 2.0을\n소개합니다.")
-                        .subHeadingTvColor(Color.parseColor("#ffffff"))
-                        .subHeadingTvSize(16)
-                        .subHeadingTvText("해당 공간은 한 마디 씩 길게, 짧게 쓰는,\n작은 공간입니다.")
-                        .maskColor(Color.parseColor("#dc000000"))
-                        .target(material_design_floating_action_menu_item1)
-                        .lineAnimDuration(400)
-                        .lineAndArcColor(Color.parseColor("#FFFFFF"))
-                        .dismissOnTouch(true)
-                        .dismissOnBackPress(true)
-                        .enableDismissAfterShown(true)
-                        .usageId("FDE!@@#") //UNIQUE ID
-                        .setListener {
-                            SpotlightView.Builder(this@MainActivity)
-                                    .introAnimationDuration(400)
-                                    .performClick(true)
-                                    .fadeinTextDuration(400)
-                                    .headingTvColor(Color.parseColor("#FFFFFF"))
-                                    .headingTvSize(32)
-                                    .headingTvText("Remember 2.0을 소개합니다.")
-                                    .subHeadingTvColor(Color.parseColor("#FFFFFF"))
-                                    .subHeadingTvSize(16)
-                                    .subHeadingTvText("해당 공간은 개발자 소감,\n세월호 304명을 추모하기 위한 곳입니다.")
-                                    .maskColor(Color.parseColor("#dc000000"))
-                                    .target(material_design_floating_action_menu_item2)
-                                    .lineAnimDuration(400)
-                                    .lineAndArcColor(Color.parseColor("#FFFFFF"))
-                                    .dismissOnTouch(true)
-                                    .dismissOnBackPress(true)
-                                    .enableDismissAfterShown(true)
-                                    .usageId("FDE!@@#2") //UNIQUE ID
-                                    .show()
-                            firstrun = false
-                        }
-                        .show()
-                getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
-                        .edit()
-                        .putBoolean("firstrun", false)
-                        .commit()
+            if (firstRun) {
+                buildSpotlight()
             } else {
                 startActivity(Intent(applicationContext, RememberActivity::class.java))
             }
         }
     }
 
+    private fun buildSpotlight() {
+        SpotlightView.Builder(this@MainActivity)
+                .introAnimationDuration(400)
+                .performClick(true)
+                .fadeinTextDuration(400)
+                .headingTvColor(Color.parseColor("#FFFFFF"))
+                .headingTvSize(32)
+                .headingTvText("Remember 2.0을\n소개합니다.")
+                .subHeadingTvColor(Color.parseColor("#ffffff"))
+                .subHeadingTvSize(16)
+                .subHeadingTvText("해당 공간은 한 마디 씩 길게, 짧게 쓰는,\n작은 공간입니다.")
+                .maskColor(Color.parseColor("#dc000000"))
+                .target(material_design_floating_action_menu_item1)
+                .lineAnimDuration(400)
+                .lineAndArcColor(Color.parseColor("#FFFFFF"))
+                .dismissOnTouch(true)
+                .dismissOnBackPress(true)
+                .enableDismissAfterShown(true)
+                .usageId("FDE!@@#") //UNIQUE ID
+                .setListener {
+                    SpotlightView.Builder(this@MainActivity)
+                            .introAnimationDuration(400)
+                            .performClick(true)
+                            .fadeinTextDuration(400)
+                            .headingTvColor(Color.parseColor("#FFFFFF"))
+                            .headingTvSize(32)
+                            .headingTvText("Remember 2.0을 소개합니다.")
+                            .subHeadingTvColor(Color.parseColor("#FFFFFF"))
+                            .subHeadingTvSize(16)
+                            .subHeadingTvText("해당 공간은 개발자 소감,\n세월호 304명을 추모하기 위한 곳입니다.")
+                            .maskColor(Color.parseColor("#dc000000"))
+                            .target(material_design_floating_action_menu_item2)
+                            .lineAnimDuration(400)
+                            .lineAndArcColor(Color.parseColor("#FFFFFF"))
+                            .dismissOnTouch(true)
+                            .dismissOnBackPress(true)
+                            .enableDismissAfterShown(true)
+                            .usageId("FDE!@@#2") //UNIQUE ID
+                            .show()
+                }
+                .show()
 
-    private fun initializeMusic() {
-        mp_flip = MediaPlayer.create(this, R.raw.front_flip)
-        mp_flip?.isLooping = true
-        mp_flip?.start()
+                getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean("firstRun", false)
+                .commit()
     }
 
-
-    override fun onBackPressed() {
+    private fun buildEndDialog() {
         val builder = AlertDialog.Builder(this)
         val inflater = layoutInflater
         val view = inflater.inflate(R.layout.turn_off, null)
@@ -235,12 +189,29 @@ class MainActivity : AppCompatActivity() {
         videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" +
                 R.raw.turnoff_))
         videoView.start()
-        ok.setOnClickListener { finish() }
+        ok.setOnClickListener {
+            dialog.dismiss()
+            finish()
+        }
         dialog.show()
     }
 
+
+    private fun initializeMusic() {
+        mp_flip = MediaPlayer.create(this, R.raw.front_flip)
+        mp_flip?.isLooping = true
+        mp_flip?.start()
+    }
+
+
+    override fun onBackPressed() {
+        buildEndDialog()
+    }
+
+
+
     public override fun onDestroy() {
-//        mp_flip!!.stop()
+        mp_flip!!.stop()
         super.onDestroy()
     }
 
