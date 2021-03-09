@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.solo_dev.remember_final.R
-import com.solo_dev.remember_final.data.write.DataWrite
+import com.solo_dev.remember_final.data.data.DataWrite
 import com.solo_dev.remember_final.ui.adapter.write.listener.onClickItemListener
 import kotlinx.coroutines.*
 
@@ -34,13 +34,13 @@ class WriteAdapter(private val aContext: Context, private val listener: onClickI
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var root : View ?= null
 
-        root = LayoutInflater.from(parent.context).inflate(R.layout.write_item, parent, false)
+        root = LayoutInflater.from(parent.context).inflate(R.layout.item_write, parent, false)
         return WriteViewHolder(root!!)
 
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val (title, contents, dateTime, imgContents, liked, reported, viewing, users, displayName) = boardData!![position]
+        val (title, contents, dateTime, imgContents, liked, reported, viewing, users, displayName) = boardData[position]
 
         if(holder is WriteViewHolder){
 
@@ -55,7 +55,7 @@ class WriteAdapter(private val aContext: Context, private val listener: onClickI
                             successfullyLoad(it.result, holder.imgContents)
                         }
                     }else{
-                        Log.d("TASK_", it.exception?.message)
+                        Log.d("TASK_", "${it.exception?.message}")
                     }
                 }
             } else {
@@ -68,7 +68,7 @@ class WriteAdapter(private val aContext: Context, private val listener: onClickI
     }
 
     override fun getItemCount(): Int {
-        return if (boardData != null) boardData!!.size else 0
+        return boardData!!.size
     }
 
     inner class WriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
