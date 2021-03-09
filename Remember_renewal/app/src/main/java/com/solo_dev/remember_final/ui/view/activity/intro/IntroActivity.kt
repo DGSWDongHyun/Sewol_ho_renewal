@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.solo_dev.remember_final.R
 import com.solo_dev.remember_final.databinding.ActivityLoadingBinding
 
-class LoadingActivity : AppCompatActivity() {
+class IntroActivity : AppCompatActivity() {
     private var loadingBinding: ActivityLoadingBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +19,15 @@ class LoadingActivity : AppCompatActivity() {
         Glide.with(applicationContext).load(R.drawable.yellow).into(loadingBinding!!.ship)
         Handler().postDelayed({ finish() }, SPLASH_TIME_OUT.toLong())
     }
+
+    override fun onPause() {
+        super.onPause()
+        if(isFinishing) {
+            this.overridePendingTransition(0, R.anim.slowly_gone)
+        }
+    }
+
+
 
     override fun onBackPressed() {
         return

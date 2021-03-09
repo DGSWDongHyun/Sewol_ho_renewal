@@ -21,6 +21,7 @@ class FirebaseDataBaseModule {
                             val writeData = result.getValue(DataWrite::class.java)!!
                             data.add(0, DataWrite(writeData.title, writeData.date, writeData.contents, writeData.imgContents,
                                     writeData.liked, writeData.reported, writeData.viewing, writeData.users, writeData.displayName))
+
                         }
 
                         override fun onChildChanged(result : DataSnapshot, s: String?) {
@@ -34,13 +35,17 @@ class FirebaseDataBaseModule {
                             Log.d("Error", result.message)
                         }
                     })
+                    for(index in data) {
+                        if(!index.imgContents!!.contains("images/")) {
+                            index.imgContents = null
+                        }
+                    }
+
                 }
                 getDatabaseBoardList.join()
 
 
                 data
             }
-
         }
-
     }

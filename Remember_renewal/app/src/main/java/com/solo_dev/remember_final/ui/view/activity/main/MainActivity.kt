@@ -3,7 +3,6 @@ package com.solo_dev.remember_final.ui.view.activity.main
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,7 +10,6 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.solo_dev.remember_final.R
-import com.solo_dev.remember_final.ui.view.activity.intro.LoadingActivity
+import com.solo_dev.remember_final.ui.view.activity.intro.IntroActivity
 import com.solo_dev.remember_final.ui.view.activity.login.GoogleLoginActivity
 import com.solo_dev.remember_final.ui.view.activity.remember.RememberActivity
 import com.solo_dev.remember_final.ui.view.activity.write.WriteActivity
@@ -48,7 +46,7 @@ class MainActivity : AppCompatActivity() {
            finish()
             startActivity(Intent(this, GoogleLoginActivity::class.java))
         }
-        val i = Intent(applicationContext, LoadingActivity::class.java)
+        val i = Intent(applicationContext, IntroActivity::class.java)
         startActivity(i)
         if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)

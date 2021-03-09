@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".DetailActivity"></activity>
-        <activity android:name=".ui.view.activity.intro.LoadingActivity" />
+        <activity android:name=".ui.view.activity.intro.IntroActivity" />
         <activity android:name=".ui.view.activity.remember.RememberActivity" />
         <activity android:name=".ui.view.activity.login.GoogleLoginActivity" />
         <activity android:name=".ui.view.activity.write.WriteActivity" />

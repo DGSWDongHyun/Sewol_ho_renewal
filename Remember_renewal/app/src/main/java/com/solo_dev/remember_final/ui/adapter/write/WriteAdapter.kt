@@ -1,6 +1,7 @@
 package com.solo_dev.remember_final.ui.adapter.write
 
 import android.content.Context
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,28 +15,20 @@ import com.google.firebase.storage.FirebaseStorage
 import com.solo_dev.remember_final.R
 import com.solo_dev.remember_final.data.write.DataWrite
 import com.solo_dev.remember_final.ui.adapter.write.listener.onClickItemListener
+import kotlinx.coroutines.*
 
 
 class WriteAdapter(private val aContext: Context, private val listener: onClickItemListener) : RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
-    private var boardData: List<DataWrite>? = null
+    private var boardData: ArrayList<DataWrite> = arrayListOf()
 
-    fun setData(boardData: ArrayList<DataWrite>?) {
+    init {
+        boardData.clear()
+    }
+
+    fun setData(boardData: ArrayList<DataWrite>) {
         this.boardData = boardData
         notifyDataSetChanged()
-    }
-
-    fun updateData(boardData: ArrayList<DataWrite>?, adapter: WriteAdapter) {
-        adapter.setData(boardData)
-    }
-
-    fun getData() : List<DataWrite>{
-        return boardData!!
-    }
-
-    fun clearData() : Boolean {
-        (boardData as ArrayList).clear()
-        return true
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -46,7 +39,6 @@ class WriteAdapter(private val aContext: Context, private val listener: onClickI
 
     }
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val (title, contents, dateTime, imgContents, liked, reported, viewing, users, displayName) = boardData!![position]
 
@@ -54,18 +46,22 @@ class WriteAdapter(private val aContext: Context, private val listener: onClickI
 
             holder.title.text = title
             holder.contents.text = contents
-            if(imgContents != null) {
+            if(!imgContents.isNullOrBlank()) {
                 holder.cardOfImage.visibility = View.VISIBLE
-                val storageReference = FirebaseStorage.getInstance().reference.child(imgContents!!)
+                val storageReference = FirebaseStorage.getInstance().reference.child(imgContents)
                 storageReference.downloadUrl.addOnCompleteListener {
                     if(it.isSuccessful) {
-                        Glide.with(aContext).load(it.result).centerCrop().into(holder.imgContents)
+                        GlobalScope.launch {
+                            successfullyLoad(it.result, holder.imgContents)
+                        }
                     }else{
                         Log.d("TASK_", it.exception?.message)
                     }
                 }
+            } else {
+                holder.cardOfImage.visibility=View.GONE
             }
-
+            Log.d("TAG", "get : $position, ${imgContents != null}")
             holder.itemView.setOnClickListener { v: View? -> listener.onClick(position, boardData!![position]) }
         }
 
@@ -82,4 +78,19 @@ class WriteAdapter(private val aContext: Context, private val listener: onClickI
         val cardOfImage : CardView = itemView.findViewById(R.id.cardView)
     }
 
+    private suspend fun successfullyLoad(result : Uri?, image : ImageView) : Boolean {
+        CoroutineScope(Dispatchers.IO).async {
+            val job: Job = GlobalScope.async {
+                withContext(Dispatchers.Main) {
+                    Glide.with(aContext).load(result).centerCrop().into(image)
+                }
+            }
+
+            job.join()
+
+            true
+        }.await()
+
+        return true
+    }
 }
