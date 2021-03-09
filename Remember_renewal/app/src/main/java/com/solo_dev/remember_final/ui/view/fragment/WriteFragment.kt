@@ -42,7 +42,6 @@ import kotlin.collections.ArrayList
 
 class WriteFragment : Fragment() {
 
-    var write = ArrayList<DataWrite>()
     var adapterWrite: WriteAdapter? = null
     var firebaseDatabase = FirebaseDatabase.getInstance()
     var databaseReference = firebaseDatabase.reference
@@ -53,7 +52,6 @@ class WriteFragment : Fragment() {
     var viewing = true
     private var filePath: Uri? = null
     var innerView: View? = null
-    var fabWrite: FloatingActionButton? = null
     private lateinit var imagePreview : ImageView
 
 
@@ -68,7 +66,20 @@ class WriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerViewInit()
+        initLayout()
 
+    }
+
+    private fun initLayout(){
+        binding.swipeLayout.setOnRefreshListener {
+            GlobalScope.launch {
+                databaseWithoutDialog()
+                delay(1000)
+                withContext(Dispatchers.Main) {
+                    binding.swipeLayout.isRefreshing = false
+                }
+            }
+        }
     }
 
     private fun recyclerViewInit() {
@@ -107,8 +118,7 @@ class WriteFragment : Fragment() {
         val getDatabase = FirebaseDataBaseModule.jobGetDatabase
         val getDatabaseAwait = getDatabase.await()
 
-
-        delay(2000)
+        delay(1200)
 
         if(getDatabase.isCompleted) {
             withContext(Dispatchers.Main) {
@@ -121,7 +131,6 @@ class WriteFragment : Fragment() {
     private suspend fun getJobOfDatabase() {
         val getDatabase = FirebaseDataBaseModule.jobGetDatabase
         val getDatabaseAwait = getDatabase.await()
-
 
         delay(2000)
 
@@ -137,14 +146,17 @@ class WriteFragment : Fragment() {
 
     private fun createDialog() {
         innerView = layoutInflater.inflate(R.layout.write_dialog, null)
+
         val sendBtn = innerView!!.findViewById<Button>(R.id.sendButton)
         val edTitle: EditText = innerView!!.findViewById(R.id.writeTitle)
         val edContents: EditText = innerView!!.findViewById(R.id.writeContent)
+
         imagePreview = innerView!!.findViewById(R.id.loadImage)
         selectImage = innerView!!.findViewById(R.id.select)
         val mDialog = AlertDialog.Builder(requireActivity())
                 .setView(innerView)
                 .create()
+
         mDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         selectImage!!.setOnClickListener(View.OnClickListener { v: View? ->
             val intent = Intent()
@@ -191,9 +203,9 @@ class WriteFragment : Fragment() {
     }
 
      override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-         if(requestCode == FirebaseDataBaseModule.CODE_UPLOAD && resultCode == RESULT_OK) {
+         if (requestCode == FirebaseDataBaseModule.CODE_UPLOAD && resultCode == RESULT_OK) {
              filePath = data!!.data
-             FirebaseStorageModule.uploadFile(imagePreview, filePath, requireActivity(), requireContext())
+             storagePath = FirebaseStorageModule.uploadFile(imagePreview, filePath, requireActivity(), requireContext())
          }
-    }
+     }
 }
