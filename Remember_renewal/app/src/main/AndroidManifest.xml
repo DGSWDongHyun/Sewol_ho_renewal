@@ -13,12 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailActivity"></activity>
-        <activity android:name=".ui.view.activity.intro.IntroActivity" />
-        <activity android:name=".ui.view.activity.remember.RememberActivity" />
-        <activity android:name=".ui.view.activity.login.GoogleLoginActivity" />
-        <activity android:name=".ui.view.activity.write.WriteActivity" />
-        <activity android:name=".ui.view.activity.main.MainActivity">
+        <activity android:name=".ui.view.activity.detail.DetailActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".ui.view.activity.intro.IntroActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activity.remember.RememberActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activity.login.GoogleLoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activity.write.WriteActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.view.activity.main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

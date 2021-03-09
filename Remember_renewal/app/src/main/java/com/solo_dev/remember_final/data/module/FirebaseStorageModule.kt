@@ -1,7 +1,6 @@
 package com.solo_dev.remember_final.data.module
 
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,10 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.solo_dev.remember_final.R
 import java.text.SimpleDateFormat
-import java.util.*
 
 class FirebaseStorageModule {
     companion object {
@@ -26,7 +23,7 @@ class FirebaseStorageModule {
                 //업로드 진행 Dialog 보이기
 
                 val progressDialog = AlertDialog.Builder(activity)
-                        .setView(R.layout.progress_dialog)
+                        .setView(R.layout.dialog_progress)
                         .create()
 
                 progressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));

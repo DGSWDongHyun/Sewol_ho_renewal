@@ -27,8 +27,6 @@ class IntroActivity : AppCompatActivity() {
         }
     }
 
-
-
     override fun onBackPressed() {
         return
     }

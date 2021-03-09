@@ -5,7 +5,7 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.solo_dev.remember_final.data.write.DataWrite
+import com.solo_dev.remember_final.data.data.DataWrite
 import kotlinx.coroutines.*
 
 class FirebaseDataBaseModule {
@@ -21,9 +21,7 @@ class FirebaseDataBaseModule {
                             val writeData = result.getValue(DataWrite::class.java)!!
                             data.add(0, DataWrite(writeData.title, writeData.date, writeData.contents, writeData.imgContents,
                                     writeData.liked, writeData.reported, writeData.viewing, writeData.users, writeData.displayName))
-
                         }
-
                         override fun onChildChanged(result : DataSnapshot, s: String?) {
                         }
                         override fun onChildRemoved(result : DataSnapshot) {
@@ -43,7 +41,6 @@ class FirebaseDataBaseModule {
 
                 }
                 getDatabaseBoardList.join()
-
 
                 data
             }

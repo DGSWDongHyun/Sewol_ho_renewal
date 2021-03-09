@@ -4,24 +4,20 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.solo_dev.remember_final.R
+import com.solo_dev.remember_final.data.module.UIModule
 import com.solo_dev.remember_final.ui.view.activity.intro.IntroActivity
 import com.solo_dev.remember_final.ui.view.activity.login.GoogleLoginActivity
 import com.solo_dev.remember_final.ui.view.activity.remember.RememberActivity
 import com.solo_dev.remember_final.ui.view.activity.write.WriteActivity
-import com.wooplr.spotlight.SpotlightView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -31,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private var dateTextView : TextView?= null
     private var leftDateTextView : TextView?= null
     private var mAuth: FirebaseAuth? = null
-    private var firstRun : Boolean = true
+    var firstRun : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +39,12 @@ class MainActivity : AppCompatActivity() {
 
         mAuth = FirebaseAuth.getInstance()
        if (mAuth!!.currentUser == null) {
-           finish()
             startActivity(Intent(this, GoogleLoginActivity::class.java))
         }
+
         val i = Intent(applicationContext, IntroActivity::class.java)
         startActivity(i)
+
         if (ContextCompat.checkSelfPermission(this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
@@ -78,30 +75,50 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initLayout() {
-        val dateNow = Date(System.currentTimeMillis())
         val calendar = Calendar.getInstance()
-        calendar.set(Calendar.MONTH, 4)
-        calendar.set(Calendar.DAY_OF_MONTH, 16)
 
-        val date = Date()
         dateTextView = findViewById(R.id.dateTextView)
         leftDateTextView = findViewById(R.id.leftDateTextView)
         dateTextView?.text = "오늘은 "+returnDate("MM")+"월 "+returnDate("dd")+"일 입니다."
-        leftDateTextView?.text = calculateDate(calendar.time, dateNow)
+        leftDateTextView?.text = calculateDate(calendar.get(Calendar.YEAR), 4, 16)
 
     }
 
-    private fun calculateDate(dateF : Date, dateS : Date) : String {
+    private fun calculateDate(year: Int, month: Int, day: Int) : String {
+        return try {
+            var yyear = year
+            var mmonth = month
+            val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+            val todaCal = Calendar.getInstance() //오늘날자 가져오
+            val ddayCal = Calendar.getInstance() //오늘날자를 가져와 변경시킴
 
-        val calculateLong = dateF.time - dateS.time
-        val calculateDays = calculateLong / (24*60*60*1000)
+            mmonth -= 1 // 받아온날자에서 -1을 해줘야함.
 
-        val dateCal = Math.abs(calculateDays)
+            ddayCal[year, mmonth] = day // D-day의 날짜를 입력
 
-        return "4월 16일까지.. '$dateCal'일 남았습니다."
+            val today = todaCal.timeInMillis / 86400000 //->(24 * 60 * 60 * 1000) 24시간 60분 60초 * (ms초->초 변환 1000)
+
+            var dDay = ddayCal.timeInMillis / 86400000
+            var count = dDay - today // 오늘 날짜에서 dday 날짜를 빼주게 됩니다.
+
+            if(count < 0) {
+                yyear += 1
+
+                ddayCal[yyear, mmonth] = day
+
+                dDay = ddayCal.timeInMillis / 86400000
+                count = dDay - today // 오늘 날짜에서 dday 날짜를 빼주게 됩니다.
+            }
+
+
+            if(count > 0) {"4월 16일까지.. ${dDay - today}일 남았습니다."} else { "4월 16일입니다." }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            (-1).toString()
+        }
     }
 
-    private fun returnDate(format : String) : String {
+    private fun returnDate(format: String) : String {
         return SimpleDateFormat(format).format(Date(System.currentTimeMillis()))
     }
 
@@ -109,104 +126,28 @@ class MainActivity : AppCompatActivity() {
         firstRun = getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE).getBoolean("firstRun", true)
         material_design_floating_action_menu_item1!!.setOnClickListener {
             if (firstRun) {
-                buildSpotlight()
+                UIModule.buildSpotlight(this, material_design_floating_action_menu_item1, material_design_floating_action_menu_item2, firstRun)
             } else {
                 startActivity(Intent(applicationContext, WriteActivity::class.java))
             }
         }
         material_design_floating_action_menu_item2!!.setOnClickListener {
             if (firstRun) {
-                buildSpotlight()
+                UIModule.buildSpotlight(this, material_design_floating_action_menu_item1, material_design_floating_action_menu_item2, firstRun)
             } else {
                 startActivity(Intent(applicationContext, RememberActivity::class.java))
             }
         }
     }
-
-    private fun buildSpotlight() {
-        SpotlightView.Builder(this@MainActivity)
-                .introAnimationDuration(400)
-                .performClick(true)
-                .fadeinTextDuration(400)
-                .headingTvColor(Color.parseColor("#FFFFFF"))
-                .headingTvSize(32)
-                .headingTvText("Remember 2.0을\n소개합니다.")
-                .subHeadingTvColor(Color.parseColor("#ffffff"))
-                .subHeadingTvSize(16)
-                .subHeadingTvText("해당 공간은 한 마디 씩 길게, 짧게 쓰는,\n작은 공간입니다.")
-                .maskColor(Color.parseColor("#dc000000"))
-                .target(material_design_floating_action_menu_item1)
-                .lineAnimDuration(400)
-                .lineAndArcColor(Color.parseColor("#FFFFFF"))
-                .dismissOnTouch(true)
-                .dismissOnBackPress(true)
-                .enableDismissAfterShown(true)
-                .usageId("FDE!@@#") //UNIQUE ID
-                .setListener {
-                    SpotlightView.Builder(this@MainActivity)
-                            .introAnimationDuration(400)
-                            .performClick(true)
-                            .fadeinTextDuration(400)
-                            .headingTvColor(Color.parseColor("#FFFFFF"))
-                            .headingTvSize(32)
-                            .headingTvText("Remember 2.0을 소개합니다.")
-                            .subHeadingTvColor(Color.parseColor("#FFFFFF"))
-                            .subHeadingTvSize(16)
-                            .subHeadingTvText("해당 공간은 개발자 소감,\n세월호 304명을 추모하기 위한 곳입니다.")
-                            .maskColor(Color.parseColor("#dc000000"))
-                            .target(material_design_floating_action_menu_item2)
-                            .lineAnimDuration(400)
-                            .lineAndArcColor(Color.parseColor("#FFFFFF"))
-                            .dismissOnTouch(true)
-                            .dismissOnBackPress(true)
-                            .enableDismissAfterShown(true)
-                            .usageId("FDE!@@#2") //UNIQUE ID
-                            .show()
-                }
-                .show()
-
-                getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
-                .edit()
-                .putBoolean("firstRun", false)
-                .commit()
-    }
-
-    private fun buildEndDialog() {
-        val builder = AlertDialog.Builder(this)
-        val inflater = layoutInflater
-        val view = inflater.inflate(R.layout.turn_off, null)
-        builder.setCancelable(true)
-        builder.setView(view)
-        val ok = view.findViewById<View>(R.id.ok) as Button
-        val dialog = builder.create()
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        val videoView = view.findViewById<VideoView>(R.id.videoView)
-        val mediaController = MediaController(this)
-        mediaController.setAnchorView(videoView)
-        videoView.setMediaController(mediaController)
-        videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" +
-                R.raw.turnoff_))
-        videoView.start()
-        ok.setOnClickListener {
-            dialog.dismiss()
-            finish()
-        }
-        dialog.show()
-    }
-
-
     private fun initializeMusic() {
         mp_flip = MediaPlayer.create(this, R.raw.front_flip)
         mp_flip?.isLooping = true
         mp_flip?.start()
     }
 
-
     override fun onBackPressed() {
-        buildEndDialog()
+        UIModule.buildEndDialog(this)
     }
-
-
 
     public override fun onDestroy() {
         mp_flip!!.stop()

@@ -1,4 +1,4 @@
-package com.solo_dev.remember_final
+package com.solo_dev.remember_final.ui.view.activity.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

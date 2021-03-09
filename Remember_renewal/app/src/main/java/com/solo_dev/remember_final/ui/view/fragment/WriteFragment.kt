@@ -2,13 +2,11 @@ package com.solo_dev.remember_final.ui.view.fragment
 
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
-import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,28 +14,22 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
-import com.solo_dev.remember_final.DetailActivity
+import com.solo_dev.remember_final.ui.view.activity.detail.DetailActivity
 import com.solo_dev.remember_final.R
 import com.solo_dev.remember_final.data.module.FirebaseDataBaseModule
 import com.solo_dev.remember_final.data.module.FirebaseStorageModule
 import com.solo_dev.remember_final.data.module.UIModule
-import com.solo_dev.remember_final.data.write.DataWrite
+import com.solo_dev.remember_final.data.data.DataWrite
 import com.solo_dev.remember_final.databinding.FragmentWriteBinding
 import com.solo_dev.remember_final.ui.adapter.write.WriteAdapter
 import com.solo_dev.remember_final.ui.adapter.write.listener.onClickItemListener
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class WriteFragment : Fragment() {
@@ -145,7 +137,7 @@ class WriteFragment : Fragment() {
 
 
     private fun createDialog() {
-        innerView = layoutInflater.inflate(R.layout.write_dialog, null)
+        innerView = layoutInflater.inflate(R.layout.dialog_write, null)
 
         val sendBtn = innerView!!.findViewById<Button>(R.id.sendButton)
         val edTitle: EditText = innerView!!.findViewById(R.id.writeTitle)
