@@ -83,6 +83,10 @@ class GoogleLoginActivity : AppCompatActivity() {
                 }
     }
 
+    override fun onBackPressed() {
+        return
+    }
+
     private fun updateUI(user: FirebaseUser?) { //update ui code here
         if (user != null) {
             finish()
