@@ -24,6 +24,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var music : MediaPlayer
     private var dateTextView : TextView?= null
     private var leftDateTextView : TextView?= null
     private var mAuth: FirebaseAuth? = null
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initLayout()
-        initializeMusic()
+        initMusic()
         clickFAB()
 
         mAuth = FirebaseAuth.getInstance()
@@ -139,10 +140,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun initializeMusic() {
-        mp_flip = MediaPlayer.create(this, R.raw.front_flip)
-        mp_flip?.isLooping = true
-        mp_flip?.start()
+    private fun initMusic() {
+        music = MediaPlayer.create(this, R.raw.front_flip)
+        music.isLooping = true
+        music.start()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        music.stop()
     }
 
     override fun onBackPressed() {
@@ -150,12 +156,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     public override fun onDestroy() {
-        mp_flip!!.stop()
         super.onDestroy()
     }
 
     companion object {
-        private var mp_flip: MediaPlayer? = null
         private const val MY_PERMISSIONS_REQUEST_FILES = 653
     }
 }

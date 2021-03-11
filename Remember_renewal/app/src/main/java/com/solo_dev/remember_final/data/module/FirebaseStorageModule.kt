@@ -24,6 +24,7 @@ class FirebaseStorageModule {
 
                 val progressDialog = AlertDialog.Builder(activity)
                         .setView(R.layout.dialog_progress)
+                        .setCancelable(false)
                         .create()
 
                 progressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
