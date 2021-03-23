@@ -27,11 +27,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var music : MediaPlayer
     private var dateTextView : TextView?= null
     private var leftDateTextView : TextView?= null
+    private var updateTextView : TextView ?= null
     private var mAuth: FirebaseAuth? = null
     var firstRun : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         initLayout()
@@ -78,10 +80,12 @@ class MainActivity : AppCompatActivity() {
     private fun initLayout() {
         val calendar = Calendar.getInstance()
 
+        updateTextView = findViewById(R.id.updateDate)
         dateTextView = findViewById(R.id.dateTextView)
         leftDateTextView = findViewById(R.id.leftDateTextView)
         dateTextView?.text = "오늘은 "+returnDate("MM")+"월 "+returnDate("dd")+"일 입니다."
-        leftDateTextView?.text = calculateDate(calendar.get(Calendar.YEAR), 4, 16)
+        updateTextView?.text = "업데이트까지.. ${calculateDate(calendar.get(Calendar.YEAR), 4, 16)}일 남았습니다."
+        leftDateTextView?.text = "4월 16일까지.. ${calculateDate(calendar.get(Calendar.YEAR), 4, 16)}일 남았습니다."
 
     }
 
@@ -112,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             }
 
 
-            if(count > 0) {"4월 16일까지.. ${dDay - today}일 남았습니다."} else { "4월 16일입니다." }
+            if(count > 0) {"${dDay - today}"} else { "4월 16일입니다." }
         } catch (e: Exception) {
             e.printStackTrace()
             (-1).toString()
