@@ -12,6 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -74,10 +75,10 @@ class GoogleLoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         val user = mAuth!!.currentUser
-                        Toast.makeText(this@GoogleLoginActivity, "로그인 되었습니다, 환영합니다! " + user!!.displayName + "님!", Toast.LENGTH_LONG).show()
+                        Snackbar.make(window.decorView.rootView, "로그인 되었습니다, 환영합니다! ${user!!.displayName}님!", Snackbar.LENGTH_LONG).show()
                         updateUI(user)
                     } else {
-                        Toast.makeText(this@GoogleLoginActivity, " 로그인에 실패했습니다. 기존 가입 계정은 문의를 넣어주시길 바랍니다.", Toast.LENGTH_LONG).show()
+                        Snackbar.make(window.decorView.rootView, "로그인에 실패했습니다. 기존 가입 계정은 문의를 넣어주시길 바랍니다.", Snackbar.LENGTH_LONG).show()
                         updateUI(null)
                     }
                 }

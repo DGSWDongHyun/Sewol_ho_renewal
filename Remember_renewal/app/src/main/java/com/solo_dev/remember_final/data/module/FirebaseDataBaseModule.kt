@@ -25,7 +25,6 @@ class FirebaseDataBaseModule {
                         override fun onChildChanged(result : DataSnapshot, s: String?) {
                         }
                         override fun onChildRemoved(result : DataSnapshot) {
-                            val writeData = result.getValue(DataWrite::class.java)!!
                         }
                         override fun onChildMoved(result : DataSnapshot, s: String?) {
                         }
