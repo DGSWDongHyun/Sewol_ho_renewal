@@ -22,12 +22,13 @@ class WriteAdapter(private val aContext: Context, private val listener: onClickI
 
     private var boardData: ArrayList<DataWrite> = arrayListOf()
 
-    init {
-        boardData.clear()
-    }
-
     fun setData(boardData: ArrayList<DataWrite>) {
         this.boardData = boardData
+        notifyDataSetChanged()
+    }
+
+    fun clear() {
+        this.boardData.clear()
         notifyDataSetChanged()
     }
 

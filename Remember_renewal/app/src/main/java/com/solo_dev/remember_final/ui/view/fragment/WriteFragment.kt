@@ -1,5 +1,6 @@
 package com.solo_dev.remember_final.ui.view.fragment
 
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import android.content.Intent
@@ -17,7 +18,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.solo_dev.remember_final.ui.view.activity.detail.DetailActivity
 import com.solo_dev.remember_final.R
 import com.solo_dev.remember_final.data.module.FirebaseDataBaseModule
@@ -63,9 +64,20 @@ class WriteFragment : Fragment() {
     }
 
     private fun initLayout(){
+        databaseReference.child("notice_server").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(p0: DataSnapshot) {
+                binding.tvServerNotice.isSelected = true
+                binding.tvServerNotice.text = p0.value.toString()
+            }
+
+            override fun onCancelled(p0: DatabaseError) {
+            }
+
+        })
+
         binding.swipeLayout.setOnRefreshListener {
             GlobalScope.launch {
-                databaseWithoutDialog()
+                refreshData(requireActivity(), adapterWrite!!)
                 delay(1000)
                 withContext(Dispatchers.Main) {
                     binding.swipeLayout.isRefreshing = false
@@ -106,33 +118,12 @@ class WriteFragment : Fragment() {
 
 
     }
-    private suspend fun databaseWithoutDialog() {
-        val getDatabase = FirebaseDataBaseModule.jobGetDatabase
-        val getDatabaseAwait = getDatabase.await()
-
-        delay(1200)
-
-        if(getDatabase.isCompleted) {
-            withContext(Dispatchers.Main) {
-                adapterWrite!!.setData(getDatabaseAwait)
-            }
-        }
-        Log.d("TAG_", "inCage : ${getDatabase.isActive}, ${getDatabase.isCompleted}, ${getDatabase.isCancelled}")
+    private fun databaseWithoutDialog() {
+        FirebaseDataBaseModule.loadWriteList(requireActivity(), adapterWrite!!)
     }
 
-    private suspend fun getJobOfDatabase() {
-        val getDatabase = FirebaseDataBaseModule.jobGetDatabase
-        val getDatabaseAwait = getDatabase.await()
-
-        delay(2000)
-
-        if(getDatabase.isCompleted) {
-            withContext(Dispatchers.Main) {
-                UIModule.progressDialog(requireActivity(), UIModule.ShowCode.REQUEST_DISMISS)
-                adapterWrite!!.setData(getDatabaseAwait)
-            }
-        }
-        Log.d("TAG_", "inCage : ${getDatabase.isActive}, ${getDatabase.isCompleted}, ${getDatabase.isCancelled}")
+    private fun getJobOfDatabase() {
+        refreshData(requireActivity(), adapterWrite!!)
     }
 
 
@@ -179,6 +170,8 @@ class WriteFragment : Fragment() {
         }
         mDialog.show()
     }
+
+
     private val time: String
         get() {
             val now2 = System.currentTimeMillis()
@@ -189,9 +182,6 @@ class WriteFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        GlobalScope.launch {
-            databaseWithoutDialog()
-        }
     }
 
      override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -200,4 +190,61 @@ class WriteFragment : Fragment() {
              storagePath = FirebaseStorageModule.uploadFile(imagePreview, filePath, requireActivity(), requireContext())
          }
      }
+
+    private fun refreshData(activity: Activity, adapter: WriteAdapter) {
+        val data = ArrayList<DataWrite>()
+        CoroutineScope(Dispatchers.Default).async {
+            val getDatabaseBoardList: Job = GlobalScope.async {
+                FirebaseDatabase.getInstance().reference.child("write").addChildEventListener(object : ChildEventListener {
+                    override fun onChildAdded(result: DataSnapshot, s: String?) {
+                        val writeData = result.getValue(DataWrite::class.java)!!
+
+                        Log.d("TAG", "tag_onAdded")
+                        data.add(0, DataWrite(writeData.title, writeData.date, writeData.contents, writeData.imgContents,
+                                writeData.liked, writeData.reported, writeData.viewing, writeData.users, writeData.displayName))
+                    }
+
+                    override fun onChildChanged(result: DataSnapshot, s: String?) {
+                        Log.d("TAG", "tag_onChanged")
+                    }
+
+                    override fun onChildRemoved(result: DataSnapshot) {
+                        Log.d("TAG", "tag_onRemoved")
+                    }
+
+                    override fun onChildMoved(result: DataSnapshot, s: String?) {
+                    }
+
+                    override fun onCancelled(result: DatabaseError) {
+                        Log.d("Error", result.message)
+                    }
+                })
+                for (index in data) {
+                    if (!index.imgContents!!.contains("images/")) {
+                        index.imgContents = null
+                    }
+                }
+
+            }
+            getDatabaseBoardList.join()
+
+            delay(2000)
+
+            if (getDatabaseBoardList.isCompleted) {
+                withContext(Dispatchers.Main) {
+                    UIModule.progressDialog(activity, UIModule.ShowCode.REQUEST_DISMISS)
+                    adapter.setData(data)
+                }
+            }
+
+            Log.d("TAG_", "inCage : ${getDatabaseBoardList.isActive}, ${getDatabaseBoardList.isCompleted}, ${getDatabaseBoardList.isCancelled}")
+
+            true
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        adapterWrite!!.clear()
+    }
 }
