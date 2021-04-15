@@ -10,8 +10,8 @@ android {
         applicationId "com.solo_dev.remember_final"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 11
-        versionName "4.0A"
+        versionCode 14
+        versionName "4.3"
         viewBinding {
             enabled = true
         }
@@ -36,6 +36,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -77,6 +78,11 @@ dependencies {
     implementation 'com.github.takusemba:spotlight:1.0.1'
     implementation 'com.github.wooplr:Spotlight:1.2.3'
     implementation 'com.airbnb.android:lottie:3.6.1'
+
+    def nav_version = "2.3.0"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-runtime-ktx:$nav_version"
 
     implementation project(":data")
     implementation project(":domain")

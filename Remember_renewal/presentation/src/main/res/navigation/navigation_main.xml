@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_main"
+    app:startDestination="@id/menu_home">
+
+    <fragment
+        android:id="@+id/menu_home"
+        android:name="com.solo_dev.remember_final.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/menu_create"
+        android:name="com.solo_dev.remember_final.ui.view.fragment.WriteFragment"
+        android:label="WriteFragment" />
+</navigation>

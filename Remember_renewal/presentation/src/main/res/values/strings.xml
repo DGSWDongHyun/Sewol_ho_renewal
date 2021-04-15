@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Remember 2.0</string>
     <string name="info_sewol">2014년 4월 16일 전라남도 진도군 관매도 부근 해상(맹골수도)에서 청해진해운이 운영하는 인천항-제주항 정기 여객선 \'세월호\'가 전복되어 침몰해 전체 승객 476명 중 304명이(단원고 250여명) 죽거나 실종된 사고이다. 역대 수학여행 사고 중 가장 많은 사망자가 발생한 참사며, 502명이 사망한 삼풍백화점 붕괴사고와 326명이 사망한 남영호 침몰사고 이후 세 번째로 많은 인명 피해를 낸 재난 사고다.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

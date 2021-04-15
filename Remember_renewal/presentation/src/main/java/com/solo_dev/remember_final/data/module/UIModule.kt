@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.MediaController
 import android.widget.VideoView
 import com.github.clans.fab.FloatingActionButton
+import com.solo_dev.remember_final.HomeFragment
 import com.solo_dev.remember_final.R
 import com.solo_dev.remember_final.ui.view.activity.main.MainActivity
 import com.wooplr.spotlight.SpotlightView
@@ -44,26 +45,7 @@ class UIModule {
             }
         }
 
-         fun buildSpotlight(activity : Activity , floatBtn1 : FloatingActionButton, floatBtn2 : FloatingActionButton, firstRun : Boolean) {
-            SpotlightView.Builder(activity)
-                    .introAnimationDuration(400)
-                    .performClick(true)
-                    .fadeinTextDuration(400)
-                    .headingTvColor(Color.parseColor("#FFFFFF"))
-                    .headingTvSize(32)
-                    .headingTvText("Remember 2.0을\n소개합니다.")
-                    .subHeadingTvColor(Color.parseColor("#ffffff"))
-                    .subHeadingTvSize(16)
-                    .subHeadingTvText("해당 공간은 한 마디 씩 길게, 짧게 쓰는,\n작은 공간입니다.")
-                    .maskColor(Color.parseColor("#dc000000"))
-                    .target(floatBtn1)
-                    .lineAnimDuration(400)
-                    .lineAndArcColor(Color.parseColor("#FFFFFF"))
-                    .dismissOnTouch(true)
-                    .dismissOnBackPress(false)
-                    .enableDismissAfterShown(true)
-                    .usageId("FDE!@@#") //UNIQUE ID
-                    .setListener {
+         fun buildSpotlight(activity : Activity , floatBtn2 : FloatingActionButton, fragment : HomeFragment) {
                         SpotlightView.Builder(activity)
                                 .introAnimationDuration(400)
                                 .performClick(true)
@@ -84,10 +66,8 @@ class UIModule {
                                 .usageId("FDE!@@#2") //UNIQUE ID
                                 .show()
                                 .setListener {
-                                    (activity as MainActivity).firstRun = false
+                                    fragment.firstRun = false
                                 }
-                    }
-                    .show()
 
             activity.getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE)
                     .edit()
