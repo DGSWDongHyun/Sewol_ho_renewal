@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
     app:startDestination="@id/menu_home">
 
     <fragment
         android:id="@+id/menu_home"
-        android:name="com.solo_dev.remember_final.HomeFragment"
+        android:name="com.solo_dev.remember_final.ui.view.fragment.HomeFragment"
         android:label="HomeFragment" />
     <fragment
         android:id="@+id/menu_create"
         android:name="com.solo_dev.remember_final.ui.view.fragment.WriteFragment"
         android:label="WriteFragment" />
+    <fragment
+        android:id="@+id/menu_letter"
+        android:name="com.solo_dev.remember_final.ui.view.fragment.LetterFragment"
+        android:label="LetterFragment"
+        tools:layout="@layout/fragment_letter" />
 </navigation>

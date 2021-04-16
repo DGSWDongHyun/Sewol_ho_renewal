@@ -11,11 +11,9 @@ import android.widget.Button
 import android.widget.MediaController
 import android.widget.VideoView
 import com.github.clans.fab.FloatingActionButton
-import com.solo_dev.remember_final.HomeFragment
+import com.solo_dev.remember_final.ui.view.fragment.HomeFragment
 import com.solo_dev.remember_final.R
-import com.solo_dev.remember_final.ui.view.activity.main.MainActivity
 import com.wooplr.spotlight.SpotlightView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class UIModule {
     enum class ShowCode{

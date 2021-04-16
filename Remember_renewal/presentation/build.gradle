@@ -10,8 +10,8 @@ android {
         applicationId "com.solo_dev.remember_final"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 14
-        versionName "4.3"
+        versionCode 18
+        versionName "4.7"
         viewBinding {
             enabled = true
         }
@@ -78,6 +78,7 @@ dependencies {
     implementation 'com.github.takusemba:spotlight:1.0.1'
     implementation 'com.github.wooplr:Spotlight:1.2.3'
     implementation 'com.airbnb.android:lottie:3.6.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     def nav_version = "2.3.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

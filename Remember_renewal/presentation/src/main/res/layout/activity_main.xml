@@ -9,6 +9,18 @@
     tools:context=".ui.view.activity.main.MainActivity"
     tools:viewBindingIgnore="true">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navBottomView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/FAB_Nomal"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_main" />
+
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -21,17 +33,39 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/navigation_main" />
 
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navBottomView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/introLayout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/FAB_Nomal"
-        app:itemIconTint="@android:color/white"
-        app:itemTextColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_main" />
+        android:layout_height="match_parent"
+        android:background="@color/GRAY_ground"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.4"
+            fab:srcCompat="@drawable/flower" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="널 기억하는 우리 가족과 널 기억하는 주위의 모든 사람들, \n늘 널 위해 기도하고 남아 있는 사람들을 기억하렴."
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

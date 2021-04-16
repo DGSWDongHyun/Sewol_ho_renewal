@@ -17,7 +17,12 @@ class IntroActivity : AppCompatActivity() {
         loadingBinding = ActivityLoadingBinding.inflate(layoutInflater)
         setContentView(loadingBinding!!.root)
         Glide.with(applicationContext).load(R.drawable.yellow).into(loadingBinding!!.ship)
-        Handler().postDelayed({ finish() }, SPLASH_TIME_OUT.toLong())
+        Handler().postDelayed({
+
+            setResult(RESULT_OK)
+            finish()
+
+         }, SPLASH_TIME_OUT.toLong())
     }
 
     override fun onPause() {

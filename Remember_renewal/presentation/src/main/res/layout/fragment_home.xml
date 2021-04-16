@@ -127,9 +127,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_sentiment_dissatisfied_24px"
+            app:fab_label="세월호 추모하기"
             fab:fab_colorNormal="@color/FAB_Nomal"
             fab:fab_colorPressed="@color/FAB_Shadow"
-            fab:fab_label="세월호 추모하기 [2]"
             fab:fab_shadowColor="@color/FAB_Shadow"
             fab:fab_size="mini" />
 
@@ -140,7 +140,7 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

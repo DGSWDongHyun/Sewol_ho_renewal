@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_create_24px"
         android:title="글 작성"/>
 
+    <item
+        android:id="@+id/menu_letter"
+        android:icon="@drawable/ic_baseline_message_24"
+        android:title="한 줄 남기기"/>
+
 </menu>

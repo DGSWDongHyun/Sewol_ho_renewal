@@ -64,6 +64,8 @@ class WriteFragment : Fragment() {
     }
 
     private fun initLayout(){
+        binding.tvTitle.text = "글 작성하기 ( Remember 0416 )"
+
         databaseReference.child("notice_server").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 binding.tvServerNotice.isSelected = true
@@ -112,7 +114,7 @@ class WriteFragment : Fragment() {
         binding.writeList.layoutManager = LinearLayoutManager(requireContext())
         binding.writeList.adapter = adapterWrite
 
-        binding.floatingActionButton.setOnClickListener {
+        binding.writeButton.setOnClickListener {
             createDialog()
         }
 
