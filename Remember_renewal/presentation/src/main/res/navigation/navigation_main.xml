@@ -18,4 +18,8 @@
         android:name="com.solo_dev.remember_final.ui.view.fragment.LetterFragment"
         android:label="LetterFragment"
         tools:layout="@layout/fragment_letter" />
+    <fragment
+        android:id="@+id/menu_remember"
+        android:name="com.solo_dev.remember_final.ui.view.fragment.RememberFragment"
+        android:label="RememberFragment" />
 </navigation>

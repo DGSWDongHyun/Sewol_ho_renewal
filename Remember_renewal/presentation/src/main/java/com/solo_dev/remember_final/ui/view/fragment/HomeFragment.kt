@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -28,7 +30,6 @@ import com.simple.data.data.module.UIModule
 import com.solo_dev.remember_final.R
 import com.solo_dev.remember_final.ui.adapter.card.CardAdapter
 import com.solo_dev.remember_final.ui.view.activity.login.GoogleLoginActivity
-import com.solo_dev.remember_final.ui.view.activity.remember.RememberActivity
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -41,6 +42,7 @@ class HomeFragment : Fragment() {
     private var leftDateTextView : TextView?= null
     private lateinit var rvCardList : RecyclerView
     private var mAuth: FirebaseAuth? = null
+    private var cdLayout : ImageView ?= null
     var firstRun : Boolean = true
     val imageArray = arrayOf(R.drawable.card, R.drawable.card2, R.drawable.card3, R.drawable.card4, R.drawable.card5)
     val titleArray = arrayOf("다음으로 넘어가려면 슬라이드..", "1명이라도 더 살아오길..", "세월호 보도를 하다가 울컥한 아나운서.", "세월호, 지상 위로 올라오다.", "뭐가 그리 힘들었니..")
@@ -55,7 +57,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initLayout(view)
-        clickFAB()
 
         checkUpdate()
 
@@ -64,6 +65,7 @@ class HomeFragment : Fragment() {
             startActivity(Intent(requireActivity(), GoogleLoginActivity::class.java))
             requireActivity().finish()
         }
+
 
 
         if (ContextCompat.checkSelfPermission(requireActivity(),
@@ -138,9 +140,13 @@ class HomeFragment : Fragment() {
             rvCardList = view.findViewById(R.id.rvSlideCard)
             dateTextView = view.findViewById(R.id.dateTextView)
             leftDateTextView = view.findViewById(R.id.leftDateTextView)
+            cdLayout = view.findViewById(R.id.cdLayout)
 
             rvCardList.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
             rvCardList.adapter = CardAdapter(initCardArray())
+
+            val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate_anim)
+            cdLayout!!.animation = anim
 
             val snapHelper = PagerSnapHelper()
             snapHelper.attachToRecyclerView(rvCardList)
@@ -175,7 +181,7 @@ class HomeFragment : Fragment() {
                 }
 
                 val calendar = Calendar.getInstance()
-                if(count > 0) {"4월 16일까지.. ${calculateDate(calendar.get(Calendar.YEAR), 4, 16)}일 남았습니다."} else { "오늘은 세월호 7주기입니다." }
+                if(count > 0) {"4월 16일까지.. ${calculateDate(calendar.get(Calendar.YEAR), 4, 16)}일 남았습니다."} else { "세월호 8주기를 기다려주세요." }
             } catch (e: Exception) {
                 e.printStackTrace()
                 (-1).toString()
@@ -184,17 +190,6 @@ class HomeFragment : Fragment() {
 
         private fun returnDate(format: String) : String {
             return SimpleDateFormat(format).format(Date(System.currentTimeMillis()))
-        }
-
-        private fun clickFAB() {
-            firstRun = requireActivity().getSharedPreferences("PREFERENCE", Context.MODE_PRIVATE).getBoolean("firstRun", true)
-            material_design_floating_action_menu_item2!!.setOnClickListener {
-                if (firstRun) {
-                    UIModule.buildSpotlight(requireActivity(), material_design_floating_action_menu_item2, this)
-                } else {
-                    startActivity(Intent(requireActivity(), RememberActivity::class.java))
-                }
-            }
         }
 
         private fun initCardArray() : ArrayList<CardData> {

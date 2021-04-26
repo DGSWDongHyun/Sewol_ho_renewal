@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_baseline_message_24"
         android:title="한 줄 남기기"/>
 
+    <item
+        android:id="@+id/menu_remember"
+        android:icon="@drawable/ic_sentiment_dissatisfied_24px"
+        android:title="세월호 추모하기"/>
+
 </menu>
